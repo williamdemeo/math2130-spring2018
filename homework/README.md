@@ -1,8 +1,6 @@
 # Math2130-Spring2018/Homework
 
-## Chapter 1 Linear Equations in Linear Algebra
-
-### HW 1
+## HW 1
 
 **Due Friday Jan 26**
 
@@ -10,7 +8,7 @@
 **Section 1.2:** 6, 12, 16, 26, 29, 30, 31
 
 
-### HW 2
+## HW 2
 
 **DUE Friday Feb 2**
 
@@ -22,6 +20,7 @@
 **Due Friday Feb 9**
 
 **Exercises:** TBA
+
 
 ## HW 4
 
