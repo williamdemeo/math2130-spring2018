@@ -117,9 +117,9 @@ Quizzes and Exams
 -----------------
 There will be a number of quizzes, two midterm exams, and one final exam.
 
-+ **EXAM 1: Wednesday, October 11, 3pm** (on Chapters 1 and 2)
-+ **EXAM 2: Friday, November 17, 3pm** (on Chapters 3, 4, 5)
-+ **FINAL EXAM: Tuesday, December 19, 7:30--10pm** (cumulative)
++ **EXAM 1: Monday, February 26, 9am** (on Chapters 1, 2)  
++ **EXAM 2: Wednesday, April 4, 9am** (on Chapters 3, 4)  
++ **FINAL EXAM: Saturday, May 5, 4--7:30pm** (Cumulative: Chs 1--6)
 
 In accordance with university policy, the final exam is mandatory and must be
 taken by all students at the scheduled time. Do not make travel plans before
