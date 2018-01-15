@@ -6,14 +6,15 @@ MATH 2130: Introduction to Linear Algebra for Non-Mathematics Majors
 **Office:** [Math Building](https://www.google.com/maps/place/Mathematics+Building,+Boulder,+CO+80305/@40.0077558,-105.2651941,18z/data=!3m1!4b1!4m5!3m4!1s0x876bedcb63fc434b:0x103526dd5cc47ed7!8m2!3d40.0077558!4d-105.2645434), Room 202  
 **Office hours:** TBA  
 
+**Lecture time:** MWF 9--9:50am   
+**Lecture location:** [MUEN](https://www.colorado.edu/map/?id=336&mrkIid=193937) E064
 
-**Section:** 001  
 **Class Number:** 34465  
-**Credit Hours:** 3 Credit Hour Lecture
-**Campus:** Boulder Main Campus
-**Dates:** 2018-01-16 through 2018-05-03
-**Lecture time and location:** MWF 9--9:50am,
-[MUEN](https://www.colorado.edu/map/?id=336&mrkIid=193937) E064
+**Course Name:** MATH 2130  
+**Section Number:** 001  
+**Credit Hours:** 3 Credit Hour Lecture  
+**Campus:** Boulder Main Campus  
+**Dates:** 2018-01-16 through 2018-05-03  
 
 -------------------------------------------------------
 **WEBPAGES**
