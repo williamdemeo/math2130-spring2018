@@ -16,11 +16,29 @@
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
 </script>
       <style>
-.markdown-themeable-pdf-page-break {
-  border-top: 2px dotted #0098ff;
+.conflict-ours {
+  background: rgba(0, 136, 255, 0.4);
 }
-.markdown-themeable-pdf-page-break span {
-  opacity: .35;
+.conflict-ours.cursor-line {
+  background: rgba(0, 136, 255, 0.3);
+}
+.conflict-theirs {
+  background: rgba(32, 182, 132, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(32, 182, 132, 0.3);
+}
+.conflict-base {
+  background: rgba(204, 133, 51, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(204, 133, 51, 0.3);
+}
+.conflict-dirty {
+  background: rgba(235, 221, 91, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(235, 221, 91, 0.3);
 }
 
 .spell-check-misspelling .region {
@@ -441,17 +459,21 @@ pre.editor-colors .fold-marker:after {
 </style>
   </head>
   <body class='markdown-preview'><h1>HW 1</h1>
-<p><strong>Due Friday, Jan 26, 9am</strong></p>
-<h2>Section 1: 2, 10, 14, 16, 20, 22, 24</h2>
-<h3>1.1.2</h3>
-<p>Solve the system by using elementary row operations on the
+<p><strong>Due Friday, Jan 26, 9am</strong><br>
+<strong>Section 1.1.</strong> 2, 10, 14, 16, 20, 22, 24;<br>
+<strong>Section 1.2.</strong> 6, 12, 16, 26, 29, 30, 31.</p>
+<hr>
+<h3>Section 1.1</h3>
+<h4>Exercises 2, 10, 14, 16, 20, 22, 24</h4>
+<p><strong>1.1.2.</strong>
+Solve the system by using elementary row operations on the
 equations or on the augmented matrix. Follow
 the systematic elimination procedure described in this section.</p>
 <p>2 x₁ + 4 x₂ = -4<br>
 5 x₁ + 7 x₂ = 11</p>
 <hr>
-<h3>1.1.10</h3>
-<p>The augmented matrix of a linear system has
+<p><strong>1.1.10</strong>
+The augmented matrix of a linear system has
 been reduced by row operations to the form shown. Continue the appropriate row operations and describe the solution
 set of the original system.</p>
 <span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
@@ -461,8 +483,8 @@ set of the original system.</p>
  0 & 0 & 0 & 1 & -3
 \end{array}\right]</script></span>
 <hr>
-<h3>1.1.14</h3>
-<p>Solve the system of equations.</p>
+<p><strong>1.1.14</strong>
+Solve the system of equations.</p>
 <span class="math"><script type="math/tex; mode=display">\begin{array}{r}
 x_1 & - & 3x_2 &   &      & = & 5\\\
 -x_1 & + & x_2 & + & 5x_3 & = & 2\\\
@@ -470,8 +492,8 @@ x_1 & - & 3x_2 &   &      & = & 5\\\
      \end{array}
 </script></span>
 <hr>
-<h3>1.1.16</h3>
-<p>Determine if the system is consistent.  Do not completely solve the system.</p>
+<p><strong>1.1.16</strong>
+Determine if the system is consistent.  Do not completely solve the system.</p>
 <span class="math"><script type="math/tex; mode=display">\begin{array}{r}
   x_1 & &      & &      &-& 2x_4 &=& -3\\\
       & & 2x_2 &+& 2x_3 & &      &=& 0\\\
@@ -480,24 +502,24 @@ x_1 & - & 3x_2 &   &      & = & 5\\\
 \end{array}
 </script></span>
 <hr>
-<h3>1.1.20</h3>
-<p>Determine the value(s) of <span class="math"><script type="math/tex">h</script></span> such that the matrix is the
+<p><strong>1.1.20</strong>
+Determine the value(s) of <span class="math"><script type="math/tex">h</script></span> such that the matrix is the
 augmented matrix of a consistent linear system.</p>
 <span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
  1 & h& -3\\\
  -2 & 4 & 6
 \end{array}\right]</script></span>
 <hr>
-<h3>1.1.22</h3>
-<p>Determine the value(s) of <span class="math"><script type="math/tex">h</script></span> such that the matrix is the
+<p><strong>1.1.22</strong>
+Determine the value(s) of <span class="math"><script type="math/tex">h</script></span> such that the matrix is the
 augmented matrix of a consistent linear system.</p>
 <span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
  2 & -3& h\\\
  -6 & 9 & 5
 \end{array}\right]</script></span>
 <hr>
-<h3>1.1.24</h3>
-<p>In this exercise, key statements from this section are
+<p><strong>1.1.24</strong>
+In this exercise, key statements from this section are
 either quoted directly, restated slightly (but still true), or
 altered in some way that makes them false in some cases. Mark each statement True or False, and justify your answer. (If
 true, give the approximate location where a similar statement appears, or refer to a definition or theorem. If false, give the location of a statement that has been quoted or used incorrectly, or cite an example that shows the statement is not true in all cases.)</p>
@@ -509,14 +531,15 @@ c. An inconsistent system has more than one solution.<br>
 d. Two linear systems are equivalent if they have the same
 solution set.</p>
 <hr>
-<h2>Section 2: 6, 12, 16, 26, 29, 30, 31</h2>
-<h3>1.2.6</h3>
-<p>Describe the possible echelon forms of a nonzero 3 x 2
+<h3>Section 1.2</h3>
+<h4>Ecercises 6, 12, 16, 26, 29, 30, 31.</h4>
+<p><strong>1.2.6</strong>
+Describe the possible echelon forms of a nonzero 3 x 2
 matrix. Use the symbols ■, ∗, and 0, as in the first part of
 Example 1.</p>
 <hr>
-<h3>1.2.12</h3>
-<p>Find the general solution of the system whose
+<p><strong>1.2.12</strong>
+Find the general solution of the system whose
 augmented matrix is</p>
 <span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
 1 & -7 & 0 & 6 & 5 \\
@@ -525,8 +548,8 @@ augmented matrix is</p>
 \end{array}\right]
 </script></span>
 <hr>
-<h3>1.2.16</h3>
-<p>Use the notation of Example 1 for matrices
+<p><strong>1.2.16</strong>
+Use the notation of Example 1 for matrices
 in echelon form. Suppose each matrix represents the augmented
 matrix for a system of linear equations. In each case, determine if the system is consistent. If the system is consistent, determine if the solution is unique.</p>
 <p>a.
@@ -541,24 +564,23 @@ matrix for a system of linear equations. In each case, determine if the system i
 0 & 0 & 0 & \blacksquare & \ast
 \end{array}\right]</script></span></p>
 <hr>
-<h3>1.2.26</h3>
-<p>Suppose the coefficient matrix of a linear system of three
+<p><strong>1.2.26</strong>
+Suppose the coefficient matrix of a linear system of three
 equations in three variables has a pivot in each column.
-Explain why the system has a unique solution.
-Restate the last sentence in Theorem 2 using the concept</p>
+Explain why the system has a unique solution.</p>
 <hr>
-<h3>1.2.29</h3>
-<p>A system of linear equations with fewer equations than
+<p><strong>1.2.29</strong>
+A system of linear equations with fewer equations than
 unknowns is sometimes called an <em>underdetermined system</em>.
 Suppose that such a system happens to be consistent. Explain
 why there must be an infinite number of solutions.</p>
 <hr>
-<h3>1.2.30</h3>
-<p>Give an example of an inconsistent underdetermined system
+<p><strong>1.2.30</strong>
+Give an example of an inconsistent underdetermined system
 of two equations in three unknowns.</p>
 <hr>
-<h3>1.2.31</h3>
-<p>A system of linear equations with more equations than
+<p><strong>1.2.31</strong>
+A system of linear equations with more equations than
 unknowns is sometimes called an <em>overdetermined system</em>. Can
 such a system be consistent? Illustrate your answer with a
 specific system of three equations in two unknowns.</p></body>
