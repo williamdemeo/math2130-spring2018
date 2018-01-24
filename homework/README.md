@@ -45,9 +45,11 @@
 
 ### HW 5
 
-**Due Friday Feb 23**
+**Due Friday, Feb 23, 9am**  
+**Section 2.3.** 6, 12, 18, 22, 34;    
+**Section 2.8.** 6, 10, 18, 22, 24;   
+**Section 2.9.** 2, 6, 8, 18. 
 
-**Exercises:** TBA
 
 ------------------------------
 
