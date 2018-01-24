@@ -5,34 +5,41 @@
 
 ### HW 1
 
-**Due Friday Jan 26**
+**Due Friday, Jan 26, 9am**
 
-**Section 1.1:** 2, 10, 14, 16, 20, 22, 24    
-**Section 1.2:** 6, 12, 16, 26, 29, 30, 31
+**Section 1.1:** 2, 10, 14, 16, 20, 22, 24;    
+**Section 1.2:** 6, 12, 16, 26, 29, 30, 31.
 
 ------------------------------
 
 ### HW 2
 
-**DUE Friday Feb 2**
+**Due Friday, Feb 2, 9am**
 
-**Exercises:** TBA
+**Section 1.3:** 2, 6, 8, 10, 14, (19), (21), 24, 26;    
+**Section 1.4:** 2, 10, (13), 14, 18, 20, 22, (27), (29), (31), 32.   
+(Numbers in parentheses are recommended exercises for which you need not submit solutions.)
 
-------------------------------
+
+----------------------------------------------------
 
 ### HW 3
 
-**Due Friday Feb 9**
-
-**Exercises:** TBA
+**Due Friday, Feb 9, 9am**
+ 
+**Section 1.5:** 6, (14), 16, (22), 24, 26, 34;   
+**Section 1.7:** 2, 16, 18, (20), 22, (28), (30), 34, (36), (38);   
+**Section 1.8:** 6, 10, 12, 17, 22.  
+(Numbers in parentheses are recommended exercises for which you need not submit solutions.)
 
 ------------------------------
 
 ### HW 4
 
-**Due Friday Feb 16**
+**Due Friday Feb 16**    
+**Section 1.9.** 2, (8), 16, (18), (20), 24, (29), 30, (32), 38, (40);  
+**Section 2.1.** 2, 4, 6, 16, 18, (22).
 
-**Exercises:** TBA
 
 ------------------------------
 
