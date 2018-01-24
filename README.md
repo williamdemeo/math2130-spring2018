@@ -36,11 +36,8 @@ APPM 3310
 
 **Remarks about office hours:**
 The regularly scheduled office hours listed above are subject to change.
-Changes will be announced during lecture. Office hours are the hours during
-which I make a point of being available in my office to answer questions.
-However, students are encouraged to stop by my office at anytime to see if I'm
-available. It is helpful (but not required) to [send me an email](mailto:williamdemeo@gmail.com)
-in advance to let me know when you plan to visit.
+Changes will be announced during lecture. Office hours are when I make myself available to answer questions outside of the lecture.  It is helpful (but not required) to [send me an email](mailto:williamdemeo@gmail.com)
+in advance to let me know when you are planning to show up at an office hour.  If there's a class conflict that prevents you from attending any of my office hours, then I would encourage you to email me to set up an appointment.  
 
 ----------------------------------------------------------------------------
 
