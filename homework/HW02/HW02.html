@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW02</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: #31363f;
+}
+.conflict-ours {
+  background: rgba(0, 136, 255, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(0, 136, 255, 0.3);
+}
+.conflict-theirs {
+  background: rgba(32, 182, 132, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(32, 182, 132, 0.3);
+}
+.conflict-base {
+  background: rgba(204, 133, 51, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(204, 133, 51, 0.3);
+}
+.conflict-dirty {
+  background: rgba(235, 221, 91, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(235, 221, 91, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: white !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--source.syntax--embedded.syntax--source {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--constant.syntax--language,
+.syntax--source.syntax--elixir .syntax--constant.syntax--numeric,
+.syntax--source.syntax--elixir .syntax--constant.syntax--definition {
+  color: #61afef;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--definition,
+.syntax--source.syntax--elixir .syntax--variable.syntax--anonymous {
+  color: #c678dd;
+}
+.syntax--source.syntax--elixir .syntax--quoted {
+  color: #98c379;
+}
+.syntax--source.syntax--elixir .syntax--keyword.syntax--special-method,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--section,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--source.syntax--empty {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--readwrite.syntax--module .syntax--punctuation {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--regexp.syntax--section,
+.syntax--source.syntax--elixir .syntax--regexp.syntax--string {
+  color: #be5046;
+}
+.syntax--source.syntax--elixir .syntax--separator,
+.syntax--source.syntax--elixir .syntax--keyword.syntax--operator {
+  color: #d19a66;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--constant {
+  color: #e5c07b;
+}
+.syntax--source.syntax--elixir .syntax--array,
+.syntax--source.syntax--elixir .syntax--scope,
+.syntax--source.syntax--elixir .syntax--section {
+  color: #828997;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h2>HW 2</h2>
+<p><strong>Due Friday, February 2, 9am</strong><br>
+<strong>Section 1.3.</strong> 2, 6, 8, 10, 14, (19), (21), 24, 26;<br>
+<strong>Section 1.4.</strong> 2, 10, (13), 14, 18, 20, 22, (27), (29), (31), 32.<br>
+(Numbers in parentheses are recommended exercises; please do not submit solutions to these exercises.)</p>
+<hr>
+<h3>Section 1.3</h3>
+<h4>Exercises 2, 6, 8, 10, 14, (19), (21), 24, 26</h4>
+<p><strong>1.3.2.</strong>
+Compute <span class="math"><script type="math/tex">\mathbf{u} + \mathbf{v}</script></span> and
+<span class="math"><script type="math/tex">\mathbf{u} - 2 \mathbf{v}</script></span>, where
+<span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r} 3 \\ 2 \end{array}\right]
+\text{ and }
+\mathbf{v} = \left[\begin{array}{r} 2 \\ -1 \end{array}\right]</script></span>.</p>
+<hr>
+<p><strong>1.3.6.</strong>
+Write a system of equations that is equivalent
+to the vector equation,</p>
+<span class="math"><script type="math/tex; mode=display">x_1\left[\begin{array}{r} -2 \\ 3 \end{array}\right] +
+x_2\left[\begin{array}{r} 8 \\ 5 \end{array}\right] +
+x_3\left[\begin{array}{r} 1 \\ -6 \end{array}\right] =
+\left[\begin{array}{r} 0 \\ 0 \end{array}\right]
+</script></span>
+<hr>
+<p><strong>1.3.8.</strong>   Answer parts (a) and (b).</p>
+<p><strong>(a)</strong> Using the accompanying figure, write each of the vectors
+<span class="math"><script type="math/tex">\mathbf{w}</script></span>, <span class="math"><script type="math/tex">\mathbf{x}</script></span>, <span class="math"><script type="math/tex">\mathbf{y}</script></span>, and <span class="math"><script type="math/tex">\mathbf{z}</script></span>
+as a linear combination of <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span>.</p>
+<p><strong>(b)</strong> Is every vector in <span class="math"><script type="math/tex">\mathbb{R}^2</script></span> a linear combination of
+<span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span>?</p>
+<p><img src="/home/williamdemeo/git/teaching/math2130-spring2018-public/homework/HW02/images/1-3-8.png?v=1516762515957" alt="1-3-8"></p>
+<hr>
+<p><strong>1.3.10.</strong> Write a vector equation that is equivalent to
+the following system of equations:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align*}
+4x_1 + x_2 + 3x_3 &= 9\\
+x_1 - 7x_2 - 2x_3 &= 2\\
+8x_1 + 6x_2 - 5x_3 &= 15
+\end{align*}</script></span>
+<hr>
+<p><strong>1.3.14.</strong>
+Determine if <span class="math"><script type="math/tex">\mathbf{b}</script></span> is a linear combination of
+the vectors formed from the columns of the matrix <span class="math"><script type="math/tex">A</script></span>, where</p>
+<span class="math"><script type="math/tex; mode=display">A = \left[\begin{array}{r}
+1 & -2 & -6  \\
+0 & 3 & 7 \\
+1 & -2 & 5
+\end{array}\right]
+\; \text{ and } \;
+\mathbf{b} =
+\left[\begin{array}{r}
+11  \\ -5 \\ 9
+\end{array}\right].</script></span>
+<hr>
+<p><strong>(1.3.19)</strong>
+Give a geometric description of <span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{v}_1, \mathbf{v}_2 \}</script></span>
+for the vectors</p>
+<span class="math"><script type="math/tex; mode=display">\mathbf{v}_1 =
+\left[\begin{array}{r}
+8  \\ 2 \\ -6
+\end{array}\right]
+\; \text{ and } \;
+\mathbf{v}_2 =
+\left[\begin{array}{r}
+12  \\ 3 \\ -9
+\end{array}\right].</script></span>
+<hr>
+<p><strong>(1.3.21)</strong>
+Let
+<span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r} 2  \\ -1 \end{array}\right]</script></span>
+and
+<span class="math"><script type="math/tex">\mathbf{v} = \left[\begin{array}{r} 2  \\ 1 \end{array}\right]</script></span>.
+Show that
+<span class="math"><script type="math/tex">\left[\begin{array}{r} h  \\ k \end{array}\right]</script></span>
+is in
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}, \mathbf{v} \}</script></span> for all <span class="math"><script type="math/tex">h</script></span> and <span class="math"><script type="math/tex">k</script></span>.</p>
+<hr>
+<p><strong>1.3.24.</strong>
+Mark each statement True or False. Justify each answer.</p>
+<p><strong>a.</strong> Any list of five real numbers is a vector in <span class="math"><script type="math/tex">\mathbb{R}^5</script></span>.</p>
+<p><strong>b.</strong> The vector <span class="math"><script type="math/tex">\mathbf{u}</script></span> results when a vector <span class="math"><script type="math/tex">\mathbf{u} - \mathbf{v}</script></span>
+is added to the vector <span class="math"><script type="math/tex">\mathbf{v}</script></span>.</p>
+<p><strong>c.</strong> The weights <span class="math"><script type="math/tex">c_1, \dots, c_p</script></span> in a linear combination
+<span class="math"><script type="math/tex">c_1\mathbf{v}_1 + \cdots + c_p \mathbf{v}_p</script></span> cannot all be zero.</p>
+<p><strong>d.</strong> When <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span> are nonzero vectors,
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}, \mathbf{v}\}</script></span> contains
+the line passing through <span class="math"><script type="math/tex">\mathbf{u}</script></span> and the origin.</p>
+<p><strong>e.</strong> Asking whether the linear system corresponding to
+an augmented matrix <span class="math"><script type="math/tex">[\mathbf{a}_1, \mathbf{a}_2, \mathbf{a}_3, \mathbf{b}]</script></span>
+has a solution amounts to asking whether <span class="math"><script type="math/tex">\mathbf{b}</script></span> is in
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{a}_1, \mathbf{a}_2, \mathbf{a}_3\}</script></span>.</p>
+<hr>
+<p><strong>1.3.26.</strong></p>
+<p>Let <span class="math"><script type="math/tex">A  = \left[\begin{array}{r}
+2& 0& 6\\
+-1 &8 &5\\
+1 &-2& 1
+\end{array}\right]</script></span>, let
+<span class="math"><script type="math/tex">\mathbf{b} =  
+\left[\begin{array}{r}
+10\\3\\3
+\end{array}\right]</script></span>, and let <span class="math"><script type="math/tex">W</script></span> be
+the set of all linear combinations of the columns of <span class="math"><script type="math/tex">A</script></span>.
+Answer (a) and (b).</p>
+<p><strong>(a)</strong> Is <span class="math"><script type="math/tex">\mathbf{b}</script></span> in <span class="math"><script type="math/tex">W</script></span>?</p>
+<p><strong>(b)</strong> Show that the third column of <span class="math"><script type="math/tex">A</script></span> is in <span class="math"><script type="math/tex">W</script></span>.</p>
+<hr>
+<h3>Section 1.4</h3>
+<h4>Exercises 2, 10, (13), 14, 18, 20, 22, (27), (29), (31), 32</h4>
+<p><strong>1.4.2.</strong>
+Compute the product
+<span class="math"><script type="math/tex">\left[\begin{array}{r}
+2\\6\\-1
+\end{array}\right]
+\left[\begin{array}{r}
+5\\-1
+\end{array}\right]</script></span>.   If the
+product is undefined, explain why.</p>
+<hr>
+<p><strong>1.4.10.</strong> Write the following system first as a vector equation
+and then as a matrix equation:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{align*}
+8x_1 - x_2 &=4\\
+5x_1 +4x_2 &=1\\
+x_1 - 3x_2 &=2
+\end{align*}</script></span>
+<hr>
+<p><strong>(1.4.13)</strong>
+Let <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}
+0 \\4\\ 4
+\end{array} \right]</script></span>
+and <span class="math"><script type="math/tex">A =
+\left[\begin{array}{r}
+ 3 & -5\\
+-2 & 6\\
+ 1 & 1\end{array}\right]</script></span>. Is <span class="math"><script type="math/tex">\mathbf{u}</script></span> in the plane spanned by the columns
+of <span class="math"><script type="math/tex">A</script></span>? (See the figure below.)  Why or why not?</p>
+<p><img src="/home/williamdemeo/git/teaching/math2130-spring2018-public/homework/HW02/images/1-4-13.png?v=1516762515959" alt="1-4-13"></p>
+<p><strong>1.4.14.</strong>
+Let <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}
+2 \\-3\\ 2
+\end{array} \right]</script></span>
+and <span class="math"><script type="math/tex">A =
+\left[\begin{array}{r}
+5 & 8 &  7\\
+0 & 1 & -1\\
+1 & 3 &  0
+\end{array}\right]</script></span>.
+Is <span class="math"><script type="math/tex">\mathbf{u}</script></span> in the plane spanned by the columns
+of <span class="math"><script type="math/tex">A</script></span>? (See the figure above.)  Why or why not?</p>
+<hr>
+<p>Exercises 18 and 20 refer to the matrix <span class="math"><script type="math/tex">B</script></span> below. Make
+appropriate calculations that justify your answers and mention an
+appropriate theorem.</p>
+<span class="math"><script type="math/tex; mode=display"> B=
+\left[\begin{array}{r}
+1 & 3 & -2 & 2\\
+0 & 1 & 1& -5\\
+1 & 2 & -3& 7\\
+-2 & -8 & 2& -1
+\end{array}\right]</script></span>
+<p><strong>1.4.18.</strong>
+Do the columns of <span class="math"><script type="math/tex">B</script></span> span <span class="math"><script type="math/tex">\mathbb{R}^4</script></span>?
+Does the equation <span class="math"><script type="math/tex">B\mathbf{x} = \mathbf{y}</script></span>
+have a solution for each <span class="math"><script type="math/tex">\mathbf{y}</script></span> in <span class="math"><script type="math/tex">\mathbb{R}^4</script></span>?</p>
+<p><strong>1.4.20.</strong>
+Can every vector in <span class="math"><script type="math/tex">\mathbb{R}^4</script></span> be written as a linear combination of
+the columns of the matrix <span class="math"><script type="math/tex">B</script></span> above? Do the columns of <span class="math"><script type="math/tex">B</script></span> span <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>?</p>
+<hr>
+<p><strong>1.4.22.</strong>
+Let
+<span class="math"><script type="math/tex">\mathbf{v}_1 =
+\left[\begin{array}{r}
+0  \\ 0 \\ -2
+\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_2 =
+\left[\begin{array}{r}
+0  \\ -3 \\ 8
+\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_3 =
+\left[\begin{array}{r}
+4  \\ -1 \\ -5
+\end{array}\right]</script></span>.</p>
+<p>Does <span class="math"><script type="math/tex">\{\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3 \}</script></span> span <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>?
+Why or why not?</p>
+<hr>
+<p><strong>(1.4.27)</strong>
+Let <span class="math"><script type="math/tex">\mathbf{q}_1</script></span>, <span class="math"><script type="math/tex">\mathbf{q}_2</script></span>, <span class="math"><script type="math/tex">\mathbf{q}_3</script></span>, and <span class="math"><script type="math/tex">\mathbf{v}</script></span>
+be vectors in <span class="math"><script type="math/tex">\mathbb{R}^5</script></span>, and let <span class="math"><script type="math/tex">x_1</script></span>, <span class="math"><script type="math/tex">x_2</script></span>,
+and <span class="math"><script type="math/tex">x_3</script></span> denote scalars. Write the vector equation</p>
+<span class="math"><script type="math/tex; mode=display">x_1 \mathbf{q}_1 + x_2 \mathbf{q}_2 + x_3 \mathbf{q}_3  =  \mathbf{v}
+</script></span>
+<p>as a matrix equation. Identify any symbols you choose to use.</p>
+<hr>
+<p><strong>(1.4.29)</strong>
+Construct a <span class="math"><script type="math/tex">3\times 3</script></span> matrix, not in echelon form, whose
+columns span <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>. Show that the matrix you construct has the
+desired property.</p>
+<hr>
+<p><strong>(1.4.31)</strong>
+Let <span class="math"><script type="math/tex">A</script></span> be a <span class="math"><script type="math/tex">3\times 2</script></span> matrix. Explain why the equation
+<span class="math"><script type="math/tex">A\mathbf{x} = \mathbf{b}</script></span> cannot be consistent for all <span class="math"><script type="math/tex">\mathbf{b}</script></span>
+in <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>. Generalize your argument to the case of an arbitrary <span class="math"><script type="math/tex">A</script></span>
+with more rows than columns.</p>
+<hr>
+<p><strong>1.4.32.</strong>
+Could a set of three vectors in <span class="math"><script type="math/tex">\mathbb{R}_4</script></span> span all of <span class="math"><script type="math/tex">\mathbb{R}_4</script></span>?
+Explain. What about <span class="math"><script type="math/tex">n</script></span> vectors in <span class="math"><script type="math/tex">\mathbb{R}_m</script></span> when <span class="math"><script type="math/tex">n</script></span> is less than <span class="math"><script type="math/tex">m</script></span>?</p></body>
+</html>
