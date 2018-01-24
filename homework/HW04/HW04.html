@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW04</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: #31363f;
+}
+.conflict-ours {
+  background: rgba(0, 136, 255, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(0, 136, 255, 0.3);
+}
+.conflict-theirs {
+  background: rgba(32, 182, 132, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(32, 182, 132, 0.3);
+}
+.conflict-base {
+  background: rgba(204, 133, 51, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(204, 133, 51, 0.3);
+}
+.conflict-dirty {
+  background: rgba(235, 221, 91, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(235, 221, 91, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: white !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--source.syntax--embedded.syntax--source {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--constant.syntax--language,
+.syntax--source.syntax--elixir .syntax--constant.syntax--numeric,
+.syntax--source.syntax--elixir .syntax--constant.syntax--definition {
+  color: #61afef;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--definition,
+.syntax--source.syntax--elixir .syntax--variable.syntax--anonymous {
+  color: #c678dd;
+}
+.syntax--source.syntax--elixir .syntax--quoted {
+  color: #98c379;
+}
+.syntax--source.syntax--elixir .syntax--keyword.syntax--special-method,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--section,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--source.syntax--empty {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--readwrite.syntax--module .syntax--punctuation {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--regexp.syntax--section,
+.syntax--source.syntax--elixir .syntax--regexp.syntax--string {
+  color: #be5046;
+}
+.syntax--source.syntax--elixir .syntax--separator,
+.syntax--source.syntax--elixir .syntax--keyword.syntax--operator {
+  color: #d19a66;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--constant {
+  color: #e5c07b;
+}
+.syntax--source.syntax--elixir .syntax--array,
+.syntax--source.syntax--elixir .syntax--scope,
+.syntax--source.syntax--elixir .syntax--section {
+  color: #828997;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h2>HW 4</h2>
+<p><strong>DUE: Friday, February 16, 9am</strong></p>
+<p><strong>Section 1.9.</strong> 2, (8), 16, (18), (20), 24, (29), 30, (32), 38, (40);<br>
+<strong>Section 2.1.</strong> 2, 4, 6, 16, 18, (22).</p>
+<hr>
+<h3>Section 1.9</h3>
+<h4>Exercises 2, (8), 16, (18), (20), 24, (29), 30, (32), 38, (40)</h4>
+<p>In Exercises 1–10, assume that <span class="math"><script type="math/tex">T</script></span> is a linear transformation. Find the standard matrix of <span class="math"><script type="math/tex">T</script></span>.</p>
+<p><strong>1.9.2.</strong>
+<span class="math"><script type="math/tex">T\colon \mathbb{R}^3 \to \mathbb{R}^2</script></span>, <span class="math"><script type="math/tex">T(\mathbf{e}_1) = (1,3)</script></span>,
+<span class="math"><script type="math/tex">T(\mathbf{e}_2) = (4,-7)</script></span>, and
+<span class="math"><script type="math/tex">T(\mathbf{e}_3) = (-5,4)</script></span>, where <span class="math"><script type="math/tex">\mathbf{e}_1</script></span>, <span class="math"><script type="math/tex">\mathbf{e}_2</script></span>, <span class="math"><script type="math/tex">\mathbf{e}_3</script></span>
+are the columns of the <span class="math"><script type="math/tex">3 \times 3</script></span> identity matrix.</p>
+<hr>
+<p><strong>1.9.8.</strong> (recommended)
+<span class="math"><script type="math/tex">T \colon \mathbb{R}^2 \to \mathbb{R}^2</script></span> first reflects points through the
+horizontal <span class="math"><script type="math/tex">x_1</script></span>-axis and then reflects points through the line <span class="math"><script type="math/tex">x_2 =x_1</script></span>.</p>
+<hr>
+<p><strong>1.9.16.</strong>
+Fill in the missing entries of the matrix,
+assuming that the equation holds for all values of the variables.</p>
+<span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
+? & ?\\
+? & ?\\
+? & ?
+\end{array}
+\right]
+\left[\begin{array}{r}
+x_1\\x_2
+\end{array}
+\right]
+=
+\left[\begin{array}{c}
+x_1-x_2\\
+-2x_1+x_2\\
+x_1
+\end{array}
+\right]
+</script></span>
+<hr>
+<p>In Exercises 17–20, show that <span class="math"><script type="math/tex">T</script></span> is a linear transformation by
+finding a matrix that implements the mapping.</p>
+<p><strong>1.9.18.</strong> (recommended)
+<span class="math"><script type="math/tex">T(x_1, x_2) = (2x_2 - 3x_1, x_1 - 4x_2, 0, x_2)</script></span></p>
+<hr>
+<p><strong>1.9.20.</strong> (recommended)
+<span class="math"><script type="math/tex">T(x_1, x_2, x_3, x_4) = 2x_1 + 3x_3- 4x_4  \quad (T\colon \mathbb{R}^4\to\mathbb{R})</script></span></p>
+<hr>
+<p><strong>1.9.24.</strong>
+Mark each statement True or False. Justify each answer.</p>
+<p><strong>a.</strong> Not every linear transformation from <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> to <span class="math"><script type="math/tex">\mathbb{R}^m</script></span>
+is a matrix transformation.<br>
+<strong>b.</strong> The columns of the standard matrix for a linear transformation
+from <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> to <span class="math"><script type="math/tex">\mathbb{R}^m</script></span> are the images of the columns of
+the <span class="math"><script type="math/tex">n \times n</script></span> identity matrix.<br>
+<strong>c.</strong> The standard matrix of a linear transformation from
+<span class="math"><script type="math/tex">\mathbb{R}^2</script></span> to <span class="math"><script type="math/tex">\mathbb{R}^2</script></span>
+that reflects points through the horizontal axis, the vertical axis, or the origin has the form
+<span class="math"><script type="math/tex">\left[\begin{array}{r}a & 0\\0 & d\end{array}\right]</script></span>,
+where <span class="math"><script type="math/tex">a</script></span> and <span class="math"><script type="math/tex">d</script></span> are <span class="math"><script type="math/tex">1</script></span> or <span class="math"><script type="math/tex">-1</script></span>.<br>
+<strong>d.</strong> A mapping <span class="math"><script type="math/tex">T\colon \mathbb{R}^n \to \mathbb{R}^m</script></span>
+is one-to-one if each vector in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> maps onto a unique
+vector in <span class="math"><script type="math/tex">\mathbb{R}^m</script></span>.<br>
+<strong>e.</strong> If <span class="math"><script type="math/tex">A</script></span> is a <span class="math"><script type="math/tex">3\times 2</script></span> matrix, then the transformation
+<span class="math"><script type="math/tex">\mathbf{x} \mapsto A \mathbf{x}</script></span> cannot map <span class="math"><script type="math/tex">\mathbb{R}^2</script></span> onto <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>.</p>
+<hr>
+<p><strong>1.9.29.</strong> (recommended)
+Suppose <span class="math"><script type="math/tex">T\colon \mathbb{R}^3 \to \mathbb{R}^4</script></span> is one-to-one.
+Describe the possible echelon forms of the standard matrix for <span class="math"><script type="math/tex">T</script></span>.
+Use the notation of Example 1 in Section 1.2.</p>
+<hr>
+<p><strong>1.9.30.</strong>
+Suppose <span class="math"><script type="math/tex">T\colon \mathbb{R}^4 \to \mathbb{R}^3</script></span> is onto.
+Describe the possible echelon forms of the standard matrix for <span class="math"><script type="math/tex">T</script></span>.
+Use the notation of Example 1 in Section 1.2.</p>
+<hr>
+<p><strong>1.9.32.</strong>  (recommended)
+Let <span class="math"><script type="math/tex">T\colon \mathbb{R}^n \to \mathbb{R}^m</script></span> be a linear transformation,
+with <span class="math"><script type="math/tex">A</script></span> its standard matrix. Complete the following statement to make
+it true: “T maps <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> onto <span class="math"><script type="math/tex">\mathbb{R}^m</script></span> if and only if <span class="math"><script type="math/tex">A</script></span> has
+___ pivot columns.” Find some theorems that explain why the
+statement is true.</p>
+<hr>
+<p>In Exercises 38 and 40, let <span class="math"><script type="math/tex">T</script></span> be the linear transformation whose
+standard matrix is given. In Exercises 38, decide if <span class="math"><script type="math/tex">T</script></span> is a
+one-to-one mapping. In Exercises 40, decide if <span class="math"><script type="math/tex">T</script></span> maps <span class="math"><script type="math/tex">\mathbb{R}^5</script></span>
+onto <span class="math"><script type="math/tex">\mathbb{R}^5</script></span>. Justify your answers.</p>
+<p><strong>1.9.38.</strong></p>
+<span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
+7 & 5 & 4 & -9\\
+10 & 6 & 16 & -4\\
+12 & 8 & 12 & 7\\
+-8 & -6 & -2 & 5
+\end{array}
+\right]</script></span>
+<hr>
+<p><strong>1.9.40.</strong>  (recommended)</p>
+<span class="math"><script type="math/tex; mode=display">\left[\begin{array}{r}
+9 & 13 & 5 & 6 & -1\\
+14 & 15 & -7 & -6 & 4 \\
+-8 &-9 &12 &-5 &-9\\
+-5 &-6 &-8 &9 &8\\ 
+13& 14& 15& 2 &11
+\end{array}
+\right]</script></span>
+<hr>
+<h3>Section 2.1</h3>
+<h4>Exercises 2, 4, 6, 16, 18, (22)</h4>
+<p><strong>2.1.2.</strong>
+Let <span class="math"><script type="math/tex">A = \left[\begin{array}{r}
+2 & 0 & -1\\
+4 & -5 & 2
+\end{array} \right]</script></span>,
+<span class="math"><script type="math/tex">B = \left[\begin{array}{r}
+7 & -5 & 1\\
+1 & -4 & -3
+\end{array} \right]</script></span>,
+<span class="math"><script type="math/tex">C = \left[\begin{array}{r}
+1 & 2 \\
+-2 & 1
+\end{array} \right]</script></span>,
+<span class="math"><script type="math/tex">E = \left[\begin{array}{r}
+-5\\3
+\end{array} \right]</script></span>.
+Compute each expression if it is defined:<br>
+<strong>a.</strong> <span class="math"><script type="math/tex">A + 2B</script></span><br>
+<strong>b.</strong> <span class="math"><script type="math/tex">3C - E</script></span><br>
+<strong>c.</strong> <span class="math"><script type="math/tex">CB</script></span><br>
+<strong>d.</strong> <span class="math"><script type="math/tex">EB</script></span><br>
+If an expression is undefined, explain why.</p>
+<hr>
+<p><strong>2.1.4.</strong>
+Compute <span class="math"><script type="math/tex">A - 5 I_3</script></span> and <span class="math"><script type="math/tex">(5 I_3)A</script></span>, when
+<span class="math"><script type="math/tex">A = \left[\begin{array}{r} 9 & -1 & 3\\-8 & 7 & -6\\-4 & 1 & 8\end{array} \right]</script></span>.</p>
+<hr>
+<p><strong>2.1.6.</strong>
+Let
+<span class="math"><script type="math/tex">A = \left[\begin{array}{r} 4 & -2\\ -3 & 0 \\ 3 & 5\end{array} \right]</script></span> and
+<span class="math"><script type="math/tex">B = \left[\begin{array}{r} 1 & 3\\ 2 & -1\end{array} \right]</script></span>.
+Compute the product <span class="math"><script type="math/tex">AB</script></span> in two ways: (a) by
+the definition, where <span class="math"><script type="math/tex">A\mathbf{b}_1</script></span> and  <span class="math"><script type="math/tex">A\mathbf{b}_2</script></span> are computed separately, and
+(b) by the row-column rule for computing <span class="math"><script type="math/tex">AB</script></span>.</p>
+<hr>
+<p><strong>2.1.16.</strong>
+Let <span class="math"><script type="math/tex">A</script></span>, <span class="math"><script type="math/tex">B</script></span>, and <span class="math"><script type="math/tex">C</script></span> be arbitrary matrices for
+which the indicated sums and products are defined. Mark each
+statement True or False. Justify each answer.</p>
+<p><strong>a.</strong> If <span class="math"><script type="math/tex">A</script></span> and <span class="math"><script type="math/tex">B</script></span> are <span class="math"><script type="math/tex">3 \times 3</script></span> and
+<span class="math"><script type="math/tex">B  = [\mathbf{b}_1, \mathbf{b}_2, \mathbf{b}_3]</script></span>,
+then <span class="math"><script type="math/tex">AB  = [A\mathbf{b}_1 + A \mathbf{b}_2 + A \mathbf{b}_3]</script></span>.</p>
+<p><strong>b.</strong>
+The second row of <span class="math"><script type="math/tex">AB</script></span> is the second row of <span class="math"><script type="math/tex">A</script></span> multiplied
+on the right by <span class="math"><script type="math/tex">B</script></span>.</p>
+<p><strong>c.</strong> <span class="math"><script type="math/tex">(AB)C = (AC)B</script></span></p>
+<p><strong>d.</strong> <span class="math"><script type="math/tex">(AB)^\top = A^\top B^\top</script></span></p>
+<p><strong>e.</strong> The transpose of a sum of matrices equals the sum of their
+transposes.</p>
+<hr>
+<p><strong>2.1.18.</strong>
+Suppose the first two columns, <span class="math"><script type="math/tex">\mathrm{b}_1</script></span> and <span class="math"><script type="math/tex">\mathrm{b}_2</script></span>,
+of <span class="math"><script type="math/tex">B</script></span> are equal. What can you say about the columns of <span class="math"><script type="math/tex">AB</script></span>
+(assume <span class="math"><script type="math/tex">AB</script></span> is defined)?
+Why?</p>
+<hr>
+<p><strong>2.1.22.</strong>  (recommended)
+Show that if the columns of <span class="math"><script type="math/tex">B</script></span> are linearly dependent, then
+so are the columns of <span class="math"><script type="math/tex">AB</script></span>.</p>
+<hr>
+<h3>Section 2.2</h3>
+<h4>Exercises (3), 4, 6, (15), 18, 32</h4>
+<p>Find the inverses of the matrices in Exercises 1–4.</p>
+<p><strong>2.2.3.</strong>  (recommended)
+<span class="math"><script type="math/tex">\left[\begin{array}{r} 8 & 5\\ -7 & -5\end{array} \right]</script></span></p>
+<hr>
+<p><strong>2.2.4.</strong>
+<span class="math"><script type="math/tex">\left[\begin{array}{r} 3 & -4\\ 7 & -8\end{array} \right]</script></span></p>
+<hr>
+<p><strong>2.2.6.</strong>
+Use the inverse found in Exercise 3 to solve the system</p>
+<span class="math"><script type="math/tex; mode=display">\begin{array}
+8x_1 &+ &5x_2 &= -9\\
+5x_1 &- &5x_2 &= 11
+\end{array}</script></span>
+<hr>
+<p><strong>2.2.15.</strong>  (recommended)
+Suppose <span class="math"><script type="math/tex">A</script></span>, <span class="math"><script type="math/tex">B</script></span>, and <span class="math"><script type="math/tex">C</script></span> are invertible <span class="math"><script type="math/tex">n\times n</script></span> matrices. Show that
+<span class="math"><script type="math/tex">ABC</script></span> is also invertible by producing a matrix <span class="math"><script type="math/tex">D</script></span> such that
+<span class="math"><script type="math/tex">(ABC) D = I</script></span> and <span class="math"><script type="math/tex">D (ABC) = I</script></span>.</p>
+<hr>
+<p><strong>2.2.18.</strong>
+Suppose <span class="math"><script type="math/tex">P</script></span> is invertible and <span class="math"><script type="math/tex">A = PBP^{-1}</script></span>.
+Solve for <span class="math"><script type="math/tex">B</script></span> in terms of <span class="math"><script type="math/tex">A</script></span>.</p>
+<hr>
+<p><strong>2.2.32.</strong>
+Find the inverses of the matrix
+<span class="math"><script type="math/tex">\left[\begin{array}{r} 1 & -2 & 1\\ 4 & -7 & 3\\ -2 & 6 & -4\end{array} \right]</script></span>
+if it exists. Use the algorithm introduced in this section.</p></body>
+</html>
