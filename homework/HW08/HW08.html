@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW08</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: #31363f;
+}
+.conflict-ours {
+  background: rgba(0, 136, 255, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(0, 136, 255, 0.3);
+}
+.conflict-theirs {
+  background: rgba(32, 182, 132, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(32, 182, 132, 0.3);
+}
+.conflict-base {
+  background: rgba(204, 133, 51, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(204, 133, 51, 0.3);
+}
+.conflict-dirty {
+  background: rgba(235, 221, 91, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(235, 221, 91, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: white !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--source.syntax--embedded.syntax--source {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--constant.syntax--language,
+.syntax--source.syntax--elixir .syntax--constant.syntax--numeric,
+.syntax--source.syntax--elixir .syntax--constant.syntax--definition {
+  color: #61afef;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--definition,
+.syntax--source.syntax--elixir .syntax--variable.syntax--anonymous {
+  color: #c678dd;
+}
+.syntax--source.syntax--elixir .syntax--quoted {
+  color: #98c379;
+}
+.syntax--source.syntax--elixir .syntax--keyword.syntax--special-method,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--section,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--source.syntax--empty {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--readwrite.syntax--module .syntax--punctuation {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--regexp.syntax--section,
+.syntax--source.syntax--elixir .syntax--regexp.syntax--string {
+  color: #be5046;
+}
+.syntax--source.syntax--elixir .syntax--separator,
+.syntax--source.syntax--elixir .syntax--keyword.syntax--operator {
+  color: #d19a66;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--constant {
+  color: #e5c07b;
+}
+.syntax--source.syntax--elixir .syntax--array,
+.syntax--source.syntax--elixir .syntax--scope,
+.syntax--source.syntax--elixir .syntax--section {
+  color: #828997;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h1>HW 8</h1>
+<p><strong>DUE Friday, March 23.</strong><br>
+<strong>Section 4.3:</strong> (29), 30, 32;<br>
+<strong>Section 4.4:</strong> 4, 8, (9), 12, 16, (18), 22, (23);<br>
+<strong>Section 4.5:</strong> 6, 8, 12, 14, 20, (25), (26), (32).</p>
+<h2>Section 4.3</h2>
+<h3>Exercises: (29), 30, 32</h3>
+<p><strong>4.3.29.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">S =\{\mathbf{v}_1, \dots, \mathbf{v}_k\}</script></span> be a set of
+<span class="math"><script type="math/tex">k</script></span> vectors in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, with <span class="math"><script type="math/tex">k < n</script></span>.
+Use a theorem from Section 1.4 to explain why <span class="math"><script type="math/tex">S</script></span> cannot be
+a basis for <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<hr>
+<p><strong>4.3.30.</strong>
+Let <span class="math"><script type="math/tex">S =\{\mathbf{v}_1, \dots, \mathbf{v}_k\}</script></span> be a set of
+<span class="math"><script type="math/tex">k</script></span> vectors in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, with <span class="math"><script type="math/tex">k > n</script></span>.
+Use a theorem from Chapter 1 to explain why <span class="math"><script type="math/tex">S</script></span> cannot be
+a basis for <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<hr>
+<p><strong>Remark:</strong> Exercises 4.3.29 and 4.3.30 show that every basis for <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> must contain exactly <span class="math"><script type="math/tex">n</script></span> vectors.</p>
+<hr>
+<p><strong>4.3.32.</strong>
+Suppose <span class="math"><script type="math/tex">T</script></span> is a one-to-one transformation. (Recall this means that,
+for all <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span>, we have
+<span class="math"><script type="math/tex">T(\mathbf{u}) = T(\mathbf{v})</script></span> implies <span class="math"><script type="math/tex">\mathbf{u} = \mathbf{v}</script></span>.)
+Show that if the set
+<span class="math"><script type="math/tex">\{T(\mathbf{v}_1), \dots, T(\mathbf{v}_p)\}</script></span>,
+of images is linearly dependent, then
+<span class="math"><script type="math/tex">\{\mathbf{v}_1, \dots, \mathbf{v}_p\}</script></span> linearly dependent.
+(This fact shows that a one-to-one linear transformation maps a
+linearly independent set onto a linearly independent set,
+because in this case the set of images cannot be linearly dependent).</p>
+<hr>
+<h2>Section 4.4</h2>
+<h3>Exercises: 4, 8, (9), 12, 16, (18), 22, (23)</h3>
+<p><strong>4.4.4.</strong>
+Find the vector <span class="math"><script type="math/tex">\mathbf{x}</script></span> determined
+by the coordinate vector
+<span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{B}}=\left[\begin{array}{r}-4\\8\\-7\end{array}\right]</script></span>
+and the basis
+<span class="math"><script type="math/tex">\mathcal{B}=\left\{\left[\begin{array}{r}-1\\2\\0\end{array}\right],\left[\begin{array}{r}3\\-5\\2\end{array}\right], \left[\begin{array}{r}4\\-7\\3\end{array}\right]\right\}</script></span>.</p>
+<hr>
+<p><strong>4.4.8.</strong> Find the coordinate vector
+<span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{B}}</script></span> of
+<span class="math"><script type="math/tex">\mathbf{x}=\left[\begin{array}{r}3\\-5\\4\end{array}\right]</script></span>
+relative to the basis
+<span class="math"><script type="math/tex">\mathcal{B}=\left\{\left[\begin{array}{r}1\\0\\3\end{array}\right],\left[\begin{array}{r}2\\1\\8\end{array}\right], \left[\begin{array}{r}1\\-1\\2\end{array}\right]\right\}</script></span>.</p>
+<hr>
+<p><strong>4.4.9.</strong> (recommended)<br>
+Find the change-of-coordinates matrix from
+<span class="math"><script type="math/tex">\mathcal{B}=\left\{\left[\begin{array}{r}2\\-9\end{array}\right],\left[\begin{array}{r}1\\8\end{array}\right]\right\}</script></span>
+to the standard basis in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<hr>
+<p><strong>4.4.12.</strong>
+Use an inverse matrix to find <span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{B}}</script></span>
+for <span class="math"><script type="math/tex">\mathbf{x} = \left[\begin{array}{r}2\\0\end{array}\right]</script></span>
+and <span class="math"><script type="math/tex">\mathcal{B}=\left\{\left[\begin{array}{r}4\\5\end{array}\right],\left[\begin{array}{r}6\\7\end{array}\right]\right\}</script></span>.</p>
+<hr>
+<p><strong>4.4.16.</strong>
+Mark each statement True or False. Justify
+each answer. Unless stated otherwise, <span class="math"><script type="math/tex">\mathcal{B}</script></span> is a basis for a vector
+space <span class="math"><script type="math/tex">V</script></span>.</p>
+<p><strong>a.</strong> If <span class="math"><script type="math/tex">\mathcal{B}</script></span> is the standard basis for <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, then the
+<span class="math"><script type="math/tex">\mathcal{B}</script></span>-coordinate vector of an <span class="math"><script type="math/tex">\mathbf{x}</script></span> in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> is
+<span class="math"><script type="math/tex">\mathbf{x}</script></span> itself.</p>
+<p><strong>b.</strong> The correspondence
+<span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{B}}\mapsto \mathbf{x}</script></span> is called the coordinate
+mapping.</p>
+<p><strong>c.</strong> In some cases, a plane in <span class="math"><script type="math/tex">\mathbb{R}^3</script></span> is isomorphic to <span class="math"><script type="math/tex">\mathbb{R}^2</script></span>.</p>
+<hr>
+<p><strong>4.4.18.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \dots, \mathbf{b}_n\}</script></span>
+be a basis for a vector space <span class="math"><script type="math/tex">V</script></span>. Explain
+why the <span class="math"><script type="math/tex">\mathcal{B}</script></span>-coordinate vectors of
+<span class="math"><script type="math/tex">\mathbf{b}_1, \dots, \mathbf{b}_n</script></span> are the columns
+<span class="math"><script type="math/tex">\mathbf{e}_1, \dots, \mathbf{e}_n</script></span> of the <span class="math"><script type="math/tex">n\times n</script></span>
+identity matrix.</p>
+<hr>
+<p><strong>4.4.22.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \dots, \mathbf{b}_n\}</script></span>
+be a basis for <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>. Describe an <span class="math"><script type="math/tex">n \times n</script></span> matrix
+<span class="math"><script type="math/tex">A</script></span> that implements the coordinate mapping
+<span class="math"><script type="math/tex">\mathbf{x}\mapsto [\mathbf{x}]_{\mathcal{B}}</script></span>.</p>
+<hr>
+<p><strong>4.4.23.</strong> (recommended)<br>
+Show that the coordinate mapping is one-to-one.
+[<em>Hint:</em> Suppose
+<span class="math"><script type="math/tex">[\mathbf{u}]_{\mathcal{B}} = [\mathbf{w}]_{\mathcal{B}}</script></span>
+for some <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{w}</script></span> in <span class="math"><script type="math/tex">V</script></span> and show that
+<span class="math"><script type="math/tex">\mathbf{u}=\mathbf{w}</script></span>.]</p>
+<hr>
+<h2>Section 4.5</h2>
+<h3>Exercises: 6, 8, 12, 14, 20, (25), (26), (32)</h3>
+<p><strong>4.5.6.</strong>
+Let
+<span class="math"><script type="math/tex">V = \left\{\left[\begin{array}{c}3a+6b-c\\6a-2b-2c\\-9a+5b+3c\\-3a+b+c\end{array}\right] : a, b, c \text{ in } \mathbb{R} \right\}</script></span>.
+Find the following:</p>
+<p><strong>a.</strong> a basis for <span class="math"><script type="math/tex">V</script></span>;</p>
+<p><strong>b.</strong> the dimension of <span class="math"><script type="math/tex">V</script></span>.</p>
+<hr>
+<p><strong>4.5.8.</strong>
+Let <span class="math"><script type="math/tex">V = \{(a,b,c,d) : a - 3b - +c = 0\}</script></span>. Find the following:</p>
+<p><strong>a.</strong> a basis for <span class="math"><script type="math/tex">V</script></span>;</p>
+<p><strong>b.</strong> the dimension of <span class="math"><script type="math/tex">V</script></span>.</p>
+<hr>
+<p><strong>4.5.12.</strong>
+Find the dimension of the subspace
+spanned by the vectors,
+<span class="math"><script type="math/tex">\left[\begin{array}{r}1\\-2\\0\end{array}\right], \left[\begin{array}{r}-3\\4\\1\end{array}\right], \left[\begin{array}{r}-8\\6\\5\end{array}\right], \left[\begin{array}{r}-3\\0\\7\end{array}\right]</script></span>.</p>
+<hr>
+<p><strong>4.5.14.</strong>
+Determine the dimensions of <span class="math"><script type="math/tex">\operatorname{Nul} A</script></span> and <span class="math"><script type="math/tex">\operatorname{Col} A</script></span> for the matrix</p>
+<span class="math"><script type="math/tex; mode=display">A = \left[\begin{array}{r}1 & 3 & -4 & 2 & -1 & 6\\ 0 & 0& 1 & -3 & 7 & 0 \\ 0 & 0& 0& 1 & 4 & -3 \\ 0 & 0 & 0 & 0 & 0 & 0 \end{array}\right]
+</script></span>
+<hr>
+<p><strong>4.5.20.</strong>
+Let <span class="math"><script type="math/tex">V</script></span> be a vector space. Mark each statement
+True or False. Justify each answer.</p>
+<p><strong>a.</strong> <span class="math"><script type="math/tex">\mathbb{R}^2</script></span> is a two-dimensional subspace of <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>.</p>
+<p><strong>b.</strong> The number of variables in the equation <span class="math"><script type="math/tex">A \mathbf{x} = \mathbf{0}</script></span>
+equals the dimension of <span class="math"><script type="math/tex">\operatorname{Nul} A</script></span>.</p>
+<p><strong>c.</strong> A vector space is infinite-dimensional if it is spanned by
+an infinite set.</p>
+<p><strong>d.</strong> If <span class="math"><script type="math/tex">\operatorname{dim} V = n</script></span> and if <span class="math"><script type="math/tex">S</script></span> spans <span class="math"><script type="math/tex">V</script></span>, then <span class="math"><script type="math/tex">S</script></span> is a
+basis of <span class="math"><script type="math/tex">V</script></span>.</p>
+<p><strong>e.</strong> The only three-dimensional subspace of <span class="math"><script type="math/tex">\mathbb{R}^3</script></span> is
+<span class="math"><script type="math/tex">\mathbb{R}^3</script></span> itself.</p>
+<hr>
+<p><strong>4.5.25.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">S</script></span> be a subset of an <span class="math"><script type="math/tex">n</script></span>-dimensional vector space <span class="math"><script type="math/tex">V</script></span>,
+and suppose <span class="math"><script type="math/tex">S</script></span> contains fewer than <span class="math"><script type="math/tex">n</script></span> vectors. Explain why <span class="math"><script type="math/tex">S</script></span>
+cannot span <span class="math"><script type="math/tex">V</script></span>.</p>
+<hr>
+<p><strong>4.5.26.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">H</script></span> be an <span class="math"><script type="math/tex">n</script></span>-dimensional subspace of an <span class="math"><script type="math/tex">n</script></span>-dimensional
+vector space <span class="math"><script type="math/tex">V</script></span>. Show that <span class="math"><script type="math/tex">H = V</script></span>.</p>
+<hr>
+<p><strong>4.5.32.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">H</script></span> be a nonzero subspace of <span class="math"><script type="math/tex">V</script></span>, and suppose <span class="math"><script type="math/tex">T</script></span> is
+a one-to-one linear transformation of <span class="math"><script type="math/tex">V</script></span> into <span class="math"><script type="math/tex">W</script></span>. Prove that
+<span class="math"><script type="math/tex">\operatorname{dim} T (H) = \operatorname{dim} H</script></span>.
+(If <span class="math"><script type="math/tex">T</script></span> happens to be a one-to-one mapping of <span class="math"><script type="math/tex">V</script></span> <em>onto</em> <span class="math"><script type="math/tex">W</script></span>,
+then <span class="math"><script type="math/tex">\operatorname{dim} V =\operatorname{dim} W</script></span>.
+Isomorphic finite-dimensional vector spaces have the same
+dimension.)</p></body>
+</html>
