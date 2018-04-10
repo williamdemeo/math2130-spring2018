@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW11</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: rgba(255, 255, 255, 0.07);
+}
+.conflict-ours {
+  background: rgba(23, 202, 101, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(23, 202, 101, 0.3);
+}
+.conflict-theirs {
+  background: rgba(0, 152, 255, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(0, 152, 255, 0.3);
+}
+.conflict-base {
+  background: rgba(255, 170, 44, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(255, 170, 44, 0.3);
+}
+.conflict-dirty {
+  background: rgba(245, 225, 29, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(245, 225, 29, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #1d1f21;
+  color: #c5c8c6;
+}
+pre.editor-colors .wrap-guide {
+  background-color: #676a6c;
+}
+pre.editor-colors .indent-guide {
+  color: #676a6c;
+}
+pre.editor-colors .invisible-character {
+  color: #676a6c;
+}
+pre.editor-colors .gutter {
+  background-color: #1d1f21;
+  color: #969896;
+}
+pre.editor-colors .gutter .line-number {
+  padding: 0 0.25em 0 0.5em;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #969896;
+}
+pre.editor-colors .invisible {
+  color: #c5c8c6;
+}
+pre.editor-colors .cursor {
+  color: #ffffff;
+}
+pre.editor-colors .selection .region {
+  background-color: #373b41;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-color: #969896;
+}
+.syntax--comment {
+  color: #969896;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #969896;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #f0c674;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #b5bd68;
+}
+.syntax--keyword {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--control {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--operator {
+  color: #c5c8c6;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #81a2be;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #de935f;
+}
+.syntax--storage {
+  color: #b294bb;
+}
+.syntax--constant {
+  color: #de935f;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--numeric {
+  color: #de935f;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #b5bd68;
+}
+.syntax--variable {
+  color: #cc6666;
+}
+.syntax--variable.syntax--interpolation {
+  color: #a3685a;
+}
+.syntax--variable.syntax--parameter.syntax--function {
+  color: #c5c8c6;
+}
+.syntax--invalid.syntax--illegal {
+  background-color: #cc6666;
+  color: #1d1f21;
+}
+.syntax--string {
+  color: #b5bd68;
+}
+.syntax--string.syntax--regexp {
+  color: #8abeb7;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #f0c674;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #cc6666;
+}
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #c5c8c6;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #81a2be;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #f0c674;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #a3685a;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #c5c8c6;
+}
+.syntax--support.syntax--class {
+  color: #f0c674;
+}
+.syntax--support.syntax--function {
+  color: #8abeb7;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #f0c674;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #cc6666;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #de935f;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #81a2be;
+}
+.syntax--meta.syntax--class {
+  color: #f0c674;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--link {
+  color: #de935f;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--require {
+  color: #81a2be;
+}
+.syntax--meta.syntax--selector {
+  color: #b294bb;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--tag {
+  color: #c5c8c6;
+}
+.syntax--none {
+  color: #c5c8c6;
+}
+.syntax--markup.syntax--bold {
+  color: #de935f;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #b294bb;
+}
+.syntax--markup.syntax--deleted {
+  color: #cc6666;
+}
+.syntax--markup.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #cc6666;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #81a2be;
+}
+.syntax--markup.syntax--link {
+  color: #81a2be;
+}
+.syntax--markup.syntax--inserted {
+  color: #b5bd68;
+}
+.syntax--markup.syntax--quote {
+  color: #de935f;
+}
+.syntax--markup.syntax--raw {
+  color: #b5bd68;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #8abeb7;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #b294bb;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #b5bd68;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #8abeb7;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h2>HW 11</h2>
+<p><strong>DUE Friday, April 27, 9am</strong></p>
+<h3>List of Exercises</h3>
+<p><strong>Section 6.1:</strong> 16, (27), 28, (30)<br>
+<strong>Section 6.2:</strong> 10, 12, (13), 16, 24, (33)<br>
+<strong>Section 6.3:</strong> 6, 8, 12, (13), 16</p>
+<hr>
+<h4>Section 6.1</h4>
+<p><strong>Exercises: 16, (27), 28, (30)</strong></p>
+<p><strong>6.1.16.</strong> Determine whether
+<span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}12\\3\\-5\end{array}\right]</script></span>
+and
+<span class="math"><script type="math/tex">\mathbf{v} = \left[\begin{array}{r} 2 \\ -3 \\ 3\end{array}\right]</script></span>
+are orthogonal vectors.</p>
+<p><strong>6.1.27.</strong> (recommended)<br>
+Suppose a vector <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to vectors <span class="math"><script type="math/tex">\mathbf{u}</script></span> and
+<span class="math"><script type="math/tex">\mathbf{v}</script></span>. Show that <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to the vector <span class="math"><script type="math/tex">\mathbf{u} + \mathbf{v}</script></span>.</p>
+<p><strong>6.1.28.</strong> Suppose <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to
+<span class="math"><script type="math/tex">\mathbf{u}</script></span> and
+<span class="math"><script type="math/tex">\mathbf{v}</script></span>. Show that
+<span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal
+to every <span class="math"><script type="math/tex">\mathbf{w}</script></span> in
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}, \mathbf{v}\}</script></span>.
+[<em>Hint:</em> An arbitrary <span class="math"><script type="math/tex">\mathbf{w}</script></span> in
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}, \mathbf{v}\}</script></span> has the form
+<span class="math"><script type="math/tex">\mathbf{w} =  c_1 \mathbf{u} + c_2\mathbf{v}</script></span>;
+show that <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to
+every such a vector.]</p>
+<p><strong>6.1.30.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">W</script></span> be a subspace of <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, and let <span class="math"><script type="math/tex">W^{\bot}</script></span>
+be the set of all vectors orthogonal to <span class="math"><script type="math/tex">W</script></span>.
+Show that <span class="math"><script type="math/tex">W^{\bot}</script></span> is a subspace of <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>
+using the following steps.</p>
+<p><strong>a.</strong> Take <span class="math"><script type="math/tex">\mathbf{z}</script></span> in <span class="math"><script type="math/tex">W^{\bot}</script></span>, and let <span class="math"><script type="math/tex">\mathbf{u}</script></span> represent any element of <span class="math"><script type="math/tex">W</script></span>. Then <span class="math"><script type="math/tex">\mathbf{z} \cdot \mathbf{u} = 0</script></span>.
+Take any scalar <span class="math"><script type="math/tex">c</script></span> and show that <span class="math"><script type="math/tex">c \mathbf{z}</script></span> is orthogonal
+to <span class="math"><script type="math/tex">\mathbf{u}</script></span>. (Since <span class="math"><script type="math/tex">\mathbf{u}</script></span> was an arbitrary element of <span class="math"><script type="math/tex">W</script></span>, this will
+show that <span class="math"><script type="math/tex">c\mathbf{z}</script></span> is in <span class="math"><script type="math/tex">W^{\bot}</script></span>.)</p>
+<p><strong>b.</strong> Take <span class="math"><script type="math/tex">\mathbf{z}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{z}_2</script></span> in <span class="math"><script type="math/tex">W^{\bot}</script></span>, and let
+<span class="math"><script type="math/tex">\mathbf{u}</script></span> be any element of
+<span class="math"><script type="math/tex">W</script></span>. Show that <span class="math"><script type="math/tex">\mathbf{z}_1+\mathbf{z}_2</script></span> is orthogonal to <span class="math"><script type="math/tex">\mathbf{u}</script></span>.
+What can you conclude about <span class="math"><script type="math/tex">\mathbf{z}_1 + \mathbf{z}_2</script></span>? Why?</p>
+<p><strong>c.</strong> Finish the proof that <span class="math"><script type="math/tex">W^{\bot}</script></span> is a subspace of <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<hr>
+<h4>Section 6.2</h4>
+<p><strong>Exercises: 10, 12, (13), 16, 24, (33)</strong></p>
+<p><strong>6.2.10.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{u}_1 = \left[\begin{array}{r}3\\-3\\0\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_2 = \left[\begin{array}{r}2\\2\\-1\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_3 = \left[\begin{array}{r}1\\1\\4\end{array}\right]</script></span>,
+and <span class="math"><script type="math/tex">\mathbf{x} = \left[\begin{array}{r}5\\-3\\1\end{array}\right]</script></span>.
+Show that <span class="math"><script type="math/tex">\{\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3\}</script></span>
+is an orthogonal basis for <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>. Then express <span class="math"><script type="math/tex">\mathbf{x}</script></span> as a linear
+combination of the <span class="math"><script type="math/tex">\mathbf{u}</script></span>'s.</p>
+<p><strong>6.2.12.</strong> Compute the orthogonal projection of
+<span class="math"><script type="math/tex">\left[\begin{array}{r}1\\-1\end{array}\right]</script></span> onto the line through
+<span class="math"><script type="math/tex">\left[\begin{array}{r}-1\\3\end{array}\right]</script></span>.</p>
+<p><strong>6.2.13.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}2\\3\end{array}\right]</script></span>
+and <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}4\\-7\end{array}\right]</script></span>.
+Write <span class="math"><script type="math/tex">\mathbf{y}</script></span> as the sum of two orthogonal vectors, one in
+<span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}\}</script></span> and the other orthogonal to
+<span class="math"><script type="math/tex">\mathbf{u}</script></span>.</p>
+<p><strong>6.2.16.</strong> Let <span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}-3\\9\end{array}\right]</script></span>
+and <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}1\\2\end{array}\right]</script></span>.
+Compute the distance from <span class="math"><script type="math/tex">\mathbf{y}</script></span> to the line passing through
+<span class="math"><script type="math/tex">\mathbf{u}</script></span> and the origin.</p>
+<p><strong>6.2.24.</strong>  Mark each statement True or False. Justify each answer.
+All vectors are assumed to belong to <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<p><strong>a.</strong> Not every orthogonal set in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> is linearly independent.</p>
+<p><strong>b.</strong> If a set <span class="math"><script type="math/tex">S = \{\mathbf{u}_1, \dots, \mathbf{u}_p\}</script></span>
+has the property that <span class="math"><script type="math/tex">\mathbf{u}_i \cdot \mathbf{u}_j = 0</script></span>
+whenever <span class="math"><script type="math/tex">i \neq j</script></span>, then <span class="math"><script type="math/tex">S</script></span> is an orthonormal set.</p>
+<p><strong>c.</strong> If the columns of an <span class="math"><script type="math/tex">m \times n</script></span> matrix <span class="math"><script type="math/tex">A</script></span> are orthonormal, then
+the linear mapping <span class="math"><script type="math/tex">\mathbf{x} \mapsto A \mathbf{x}</script></span> preserves lengths.</p>
+<p><strong>d.</strong> The orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span> onto <span class="math"><script type="math/tex">\mathbf{v}</script></span> is the same as the orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span> onto <span class="math"><script type="math/tex">c\mathbf{v}</script></span> whenever <span class="math"><script type="math/tex">c \neq 0</script></span>.</p>
+<p><strong>e.</strong> An orthogonal matrix is invertible.</p>
+<p><strong>6.2.33.</strong> (recommended)<br>
+Suppose <span class="math"><script type="math/tex">\mathbf{u}</script></span> is a nonzero vector in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, and let <span class="math"><script type="math/tex">L = \operatorname{Span} \{\mathbf{u}\}</script></span>. Show that the mapping
+<span class="math"><script type="math/tex">\mathbf{x} \mapsto \operatorname{proj}_L \mathbf{x}</script></span> is a linear transformation.</p>
+<hr>
+<h4>Section 6.3</h4>
+<p><strong>Exercises: 6, 8, 12, (13), 16</strong></p>
+<p><strong>6.3.6.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}6\\4\\1\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_1 = \left[\begin{array}{r}-4\\-1\\1\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_2 = \left[\begin{array}{r}0\\1\\1\end{array}\right]</script></span>.
+Verify that
+<span class="math"><script type="math/tex">\{\mathbf{u}_1,\mathbf{u}_2\}</script></span> is an orthogonal set, and then
+find the orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span>
+onto <span class="math"><script type="math/tex">\operatorname{Span} \{\mathbf{u}_1,\mathbf{u}_2\}</script></span>.</p>
+<p><strong>6.3.8.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}-1\\4\\3\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_1 = \left[\begin{array}{r}1\\1\\1\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{u}_2 = \left[\begin{array}{r}-1\\3\\-2\end{array}\right]</script></span>.
+Let <span class="math"><script type="math/tex">W</script></span> be the subspace spanned by <span class="math"><script type="math/tex">\mathbf{u}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{u}_2</script></span>, and
+write <span class="math"><script type="math/tex">\mathbf{y}</script></span> as the sum of a vector in <span class="math"><script type="math/tex">W</script></span> and a vector orthogonal to <span class="math"><script type="math/tex">W</script></span>.</p>
+<p><strong>6.3.12.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}3\\-1\\1\\13\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_1 = \left[\begin{array}{r}1\\-2\\-1\\2\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_2 = \left[\begin{array}{r}-4\\1\\0\\3\end{array}\right]</script></span>.
+Find the closest point to
+<span class="math"><script type="math/tex">\mathbf{y}</script></span> in the subspace <span class="math"><script type="math/tex">W</script></span> spanned by <span class="math"><script type="math/tex">\mathbf{v}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{v}_2</script></span>.</p>
+<p><strong>6.3.13.</strong> (recommended)<br>
+Let
+<span class="math"><script type="math/tex">\mathbf{z} = \left[\begin{array}{r}3\\-7\\2\\3\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_1 = \left[\begin{array}{r}2\\-1\\-3\\1\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_2 = \left[\begin{array}{r}1\\1\\0\\-1\end{array}\right]</script></span>.
+Find the best approximation to <span class="math"><script type="math/tex">\mathbf{z}</script></span> by a vector
+of the form <span class="math"><script type="math/tex">c_1\mathbf{v}_1 + c_2\mathbf{v}_2</script></span>.</p>
+<p><strong>6.3.16.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{y}</script></span>,
+<span class="math"><script type="math/tex">\mathbf{v}_1</script></span>, <span class="math"><script type="math/tex">\mathbf{v}_2</script></span> be as in Exercise 12.
+Find the distance from <span class="math"><script type="math/tex">\mathbf{y}</script></span> to the subspace <span class="math"><script type="math/tex">W</script></span> spanned by <span class="math"><script type="math/tex">\mathbf{v}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{v}_2</script></span>.</p></body>
+</html>

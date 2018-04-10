@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW10</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: rgba(255, 255, 255, 0.07);
+}
+.conflict-ours {
+  background: rgba(23, 202, 101, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(23, 202, 101, 0.3);
+}
+.conflict-theirs {
+  background: rgba(0, 152, 255, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(0, 152, 255, 0.3);
+}
+.conflict-base {
+  background: rgba(255, 170, 44, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(255, 170, 44, 0.3);
+}
+.conflict-dirty {
+  background: rgba(245, 225, 29, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(245, 225, 29, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #1d1f21;
+  color: #c5c8c6;
+}
+pre.editor-colors .wrap-guide {
+  background-color: #676a6c;
+}
+pre.editor-colors .indent-guide {
+  color: #676a6c;
+}
+pre.editor-colors .invisible-character {
+  color: #676a6c;
+}
+pre.editor-colors .gutter {
+  background-color: #1d1f21;
+  color: #969896;
+}
+pre.editor-colors .gutter .line-number {
+  padding: 0 0.25em 0 0.5em;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #969896;
+}
+pre.editor-colors .invisible {
+  color: #c5c8c6;
+}
+pre.editor-colors .cursor {
+  color: #ffffff;
+}
+pre.editor-colors .selection .region {
+  background-color: #373b41;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-color: #969896;
+}
+.syntax--comment {
+  color: #969896;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #969896;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #f0c674;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #b5bd68;
+}
+.syntax--keyword {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--control {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--operator {
+  color: #c5c8c6;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #81a2be;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #de935f;
+}
+.syntax--storage {
+  color: #b294bb;
+}
+.syntax--constant {
+  color: #de935f;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--numeric {
+  color: #de935f;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #b5bd68;
+}
+.syntax--variable {
+  color: #cc6666;
+}
+.syntax--variable.syntax--interpolation {
+  color: #a3685a;
+}
+.syntax--variable.syntax--parameter.syntax--function {
+  color: #c5c8c6;
+}
+.syntax--invalid.syntax--illegal {
+  background-color: #cc6666;
+  color: #1d1f21;
+}
+.syntax--string {
+  color: #b5bd68;
+}
+.syntax--string.syntax--regexp {
+  color: #8abeb7;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #f0c674;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #cc6666;
+}
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #c5c8c6;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #81a2be;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #f0c674;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #a3685a;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #c5c8c6;
+}
+.syntax--support.syntax--class {
+  color: #f0c674;
+}
+.syntax--support.syntax--function {
+  color: #8abeb7;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #f0c674;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #cc6666;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #de935f;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #81a2be;
+}
+.syntax--meta.syntax--class {
+  color: #f0c674;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--link {
+  color: #de935f;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--require {
+  color: #81a2be;
+}
+.syntax--meta.syntax--selector {
+  color: #b294bb;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--tag {
+  color: #c5c8c6;
+}
+.syntax--none {
+  color: #c5c8c6;
+}
+.syntax--markup.syntax--bold {
+  color: #de935f;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #b294bb;
+}
+.syntax--markup.syntax--deleted {
+  color: #cc6666;
+}
+.syntax--markup.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #cc6666;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #81a2be;
+}
+.syntax--markup.syntax--link {
+  color: #81a2be;
+}
+.syntax--markup.syntax--inserted {
+  color: #b5bd68;
+}
+.syntax--markup.syntax--quote {
+  color: #de935f;
+}
+.syntax--markup.syntax--raw {
+  color: #b5bd68;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #8abeb7;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #b294bb;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #b5bd68;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #8abeb7;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h2>HW 10</h2>
+<p><strong>Due: Friday, April 20, 9am.</strong></p>
+<h3>Exercises</h3>
+<p><strong>Section 5.3:</strong> 8, 16, 22<br>
+<strong>Section 5.4:</strong> 2, 12, (21), (25), 26, (27)<br>
+<strong>Section 6.1:</strong> 6, 10, 14, 20</p>
+<hr>
+<h3>Section 5.3</h3>
+<h4>Exercises: 8, 16, 22</h4>
+<p>Diagonalize the matrices in Exercises 8 and 16, if possible.
+The eigenvalues for Exercise 16 are <span class="math"><script type="math/tex">1</script></span> and <span class="math"><script type="math/tex">2</script></span>.</p>
+<!-- (11) $\lambda = 1, 2, 3$;
+(12) $\lambda = 2, 8$; 
+(13) $\lambda =5, 1$; 
+(14) $\lambda =5, 4$; 
+(15) $\lambda =3, 1$;  -->
+<p><strong>5.3.8.</strong>
+<span class="math"><script type="math/tex">\left[\begin{array}{r}
+5 & 1 \\ 0 & 5\end{array}\right]</script></span></p>
+<p><strong>5.3.16.</strong>
+<span class="math"><script type="math/tex">\left[\begin{array}{r}
+0 & -4 & -6 \\ -1 & 0 & -3\\1 & 2 & 5\end{array}\right]</script></span></p>
+<p><strong>5.3.22.</strong> Let <span class="math"><script type="math/tex">A</script></span>, <span class="math"><script type="math/tex">B</script></span>, <span class="math"><script type="math/tex">P</script></span>, and <span class="math"><script type="math/tex">D</script></span> be <span class="math"><script type="math/tex">n \times n</script></span> matrices.
+Mark each statement True or False. Justify each answer. (Study
+Theorems 5 and 6 and the examples in this section carefully before
+you try this exercise.)</p>
+<p><strong>a.</strong> <span class="math"><script type="math/tex">A</script></span> is diagonalizable if <span class="math"><script type="math/tex">A</script></span> has <span class="math"><script type="math/tex">n</script></span>-eigenvectors.</p>
+<p><strong>b.</strong> If <span class="math"><script type="math/tex">A</script></span> is diagonalizable, then <span class="math"><script type="math/tex">A</script></span> has <span class="math"><script type="math/tex">n</script></span> distinct eigenvalues.</p>
+<p><strong>c.</strong> If <span class="math"><script type="math/tex">AP=PD</script></span>, with <span class="math"><script type="math/tex">D</script></span> diagonal, then the nonzero columns
+of <span class="math"><script type="math/tex">P</script></span> must be eigenvectors of <span class="math"><script type="math/tex">A</script></span>.</p>
+<p><strong>d.</strong> If <span class="math"><script type="math/tex">A</script></span> is invertible, then <span class="math"><script type="math/tex">A</script></span> is diagonalizable.</p>
+<hr>
+<h3>Section 5.4</h3>
+<h4>Exercises: 2, 12, (21), (25), 26, (27)</h4>
+<p><strong>5.4.2.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{D} = \{\mathbf{d}_1, \mathbf{d}_2\}</script></span>
+and <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>
+be bases for vector spaces <span class="math"><script type="math/tex">V</script></span> and <span class="math"><script type="math/tex">W</script></span>, respectively.
+Let <span class="math"><script type="math/tex">T :  V \to W</script></span> be a linear transformation satisfying</p>
+<span class="math"><script type="math/tex; mode=display">T (\mathbf{d}_1) = 2\mathbf{b}_1 - 3\mathbf{b}_2 \quad \text{ and } \quad
+T (\mathbf{d}_2) = -4\mathbf{b}_1 + 5\mathbf{b}_2.
+</script></span>
+<p>Find the matrix for <span class="math"><script type="math/tex">T</script></span> relative to <span class="math"><script type="math/tex">\mathcal{D}</script></span> and <span class="math"><script type="math/tex">\mathcal{B}</script></span>.</p>
+<p><strong>5.4.12.</strong>
+Find the <span class="math"><script type="math/tex">\mathcal{B}</script></span>-matrix for the transformation
+<span class="math"><script type="math/tex">\mathbf{x} \mapsto A \mathbf{x}</script></span>, when
+<span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>, where</p>
+<span class="math"><script type="math/tex; mode=display">A = \left[\begin{array}{r}
+-1 & 4\\-2& 3 \end{array}\right],
+\quad \mathbf{b}_1 = \left[\begin{array}{r}
+3\\2 \end{array}\right], \quad
+\mathbf{b}_2 =   \left[\begin{array}{r}
+-1 \\ 1\end{array}\right].
+</script></span>
+<p><strong>5.4.21.</strong> (recommended)<br>
+Prove the following statement for square matrices, <span class="math"><script type="math/tex">A</script></span>, <span class="math"><script type="math/tex">B</script></span>, <span class="math"><script type="math/tex">C</script></span>.  If <span class="math"><script type="math/tex">B</script></span> is similar to <span class="math"><script type="math/tex">A</script></span> and <span class="math"><script type="math/tex">C</script></span> is similar to <span class="math"><script type="math/tex">A</script></span>, then <span class="math"><script type="math/tex">B</script></span> is similar
+to <span class="math"><script type="math/tex">C</script></span>.</p>
+<p><strong>5.4.25.</strong> (recommended)<br>
+The <em>trace</em> of a square matrix <span class="math"><script type="math/tex">A</script></span> is the sum of the diagonal
+entries in <span class="math"><script type="math/tex">A</script></span> and is denoted by <span class="math"><script type="math/tex">\operatorname{tr} A</script></span>.
+It can be verified that <span class="math"><script type="math/tex">\operatorname{tr} (F G) = \operatorname{tr}(G F)</script></span>
+for any two <span class="math"><script type="math/tex">n\times n</script></span> matrices <span class="math"><script type="math/tex">F</script></span> and <span class="math"><script type="math/tex">G</script></span>.
+Show that if <span class="math"><script type="math/tex">A</script></span> and <span class="math"><script type="math/tex">B</script></span> are similar, then
+<span class="math"><script type="math/tex">\operatorname{tr} A = \operatorname{tr} B</script></span>.</p>
+<p><strong>5.4.26.</strong> It can be shown that the <em>trace</em> (see Exercise 5.4.25 for definition)
+of a matrix <span class="math"><script type="math/tex">A</script></span> equals the sum of the eigenvalues of <span class="math"><script type="math/tex">A</script></span>. Verify this statement for the case when <span class="math"><script type="math/tex">A</script></span> is diagonalizable.</p>
+<p><strong>5.4.27.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">V</script></span> be <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> with a basis <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \dots, \mathbf{b}_n\}</script></span>, let
+<span class="math"><script type="math/tex">W</script></span> be <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> with a the standard basis, denoted <span class="math"><script type="math/tex">\mathcal{E}</script></span>.
+Consider the identity transformation <span class="math"><script type="math/tex">I : V \to W</script></span>, where <span class="math"><script type="math/tex">I(\mathbf{x}) = \mathbf{x}</script></span>.
+Find the matrix for <span class="math"><script type="math/tex">I</script></span> relative to <span class="math"><script type="math/tex">\mathcal{B}</script></span> and <span class="math"><script type="math/tex">\mathcal{E}</script></span>.
+What was this matrix called in Section 4.4?</p>
+<hr>
+<h3>Section 6.1</h3>
+<h4>Exercises: 6, 10, 14, 20</h4>
+<p><strong>6.1.6.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{w} = \left[\begin{array}{r}
+3\\-1\\-5\end{array}\right]</script></span>
+and <span class="math"><script type="math/tex">\mathbf{x} = \left[\begin{array}{r}
+6\\-2\\3\end{array}\right]</script></span>. Compute
+<span class="math"><script type="math/tex">{\large \left(\frac{\mathbf{x} \cdot \mathbf{w}}{\mathbf{x}\cdot \mathbf{x}}\right)}</script></span> <span class="math"><script type="math/tex">\mathbf{x}</script></span></p>
+<p><strong>6.1.10.</strong>
+Find a unit vector in the direction of the vector
+<span class="math"><script type="math/tex">\left[\begin{array}{r}
+-6\\4\\-3\end{array}\right]</script></span></p>
+<p><strong>6.1.14.</strong>
+Find the distance between
+<span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}
+0\\-5\\2\end{array}\right]</script></span>
+and
+<span class="math"><script type="math/tex">\mathbf{z} = \left[\begin{array}{r}
+-4\\-1\\8\end{array}\right]</script></span></p>
+<p><strong>6.1.20.</strong> Mark each statement True or False. Justify each answer.
+All vectors are assumed to be in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<p><strong>a.</strong> <span class="math"><script type="math/tex">\mathbf{u} \cdot \mathbf{v} - \mathbf{v}\cdot \mathbf{u} = 0</script></span></p>
+<p><strong>b.</strong> For any scalar <span class="math"><script type="math/tex">c</script></span>, <span class="math"><script type="math/tex">\|c\mathbf{v}\|= c\|\mathbf{v}\|</script></span>.</p>
+<p><strong>c.</strong> If <span class="math"><script type="math/tex">\mathbf{x}</script></span> is orthogonal to every vector in a subspace <span class="math"><script type="math/tex">W</script></span>,
+then <span class="math"><script type="math/tex">\mathbf{x}</script></span> is in <span class="math"><script type="math/tex">W^{\bot}</script></span>.</p>
+<p><strong>d.</strong> If
+<span class="math"><script type="math/tex">\|\mathbf{u}\|^2 + \|\mathbf{v}\|^2  = \|\mathbf{u} + \mathbf{v}\|^2</script></span>,
+then <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span> are orthogonal.</p>
+<p><strong>e.</strong> For an <span class="math"><script type="math/tex">m \times n</script></span> matrix <span class="math"><script type="math/tex">A</script></span>, vectors in the null space of <span class="math"><script type="math/tex">A</script></span> are
+orthogonal to vectors in the row space of <span class="math"><script type="math/tex">A</script></span>.</p></body>
+</html>

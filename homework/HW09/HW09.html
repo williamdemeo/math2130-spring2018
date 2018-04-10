@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>HW09</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: [],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    showMathMenu: false
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+      <style>
+.conflict-resolved {
+  background: rgba(255, 255, 255, 0.07);
+}
+.conflict-ours {
+  background: rgba(23, 202, 101, 0.4);
+}
+.conflict-ours.cursor-line {
+  background: rgba(23, 202, 101, 0.3);
+}
+.conflict-theirs {
+  background: rgba(0, 152, 255, 0.4);
+}
+.conflict-theirs.cursor-line {
+  background: rgba(0, 152, 255, 0.3);
+}
+.conflict-base {
+  background: rgba(255, 170, 44, 0.4);
+}
+.conflict-base.cursor-line {
+  background: rgba(255, 170, 44, 0.3);
+}
+.conflict-dirty {
+  background: rgba(245, 225, 29, 0.4);
+}
+.conflict-dirty.cursor-line {
+  background: rgba(245, 225, 29, 0.3);
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #1d1f21;
+  color: #c5c8c6;
+}
+pre.editor-colors .wrap-guide {
+  background-color: #676a6c;
+}
+pre.editor-colors .indent-guide {
+  color: #676a6c;
+}
+pre.editor-colors .invisible-character {
+  color: #676a6c;
+}
+pre.editor-colors .gutter {
+  background-color: #1d1f21;
+  color: #969896;
+}
+pre.editor-colors .gutter .line-number {
+  padding: 0 0.25em 0 0.5em;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #969896;
+}
+pre.editor-colors .invisible {
+  color: #c5c8c6;
+}
+pre.editor-colors .cursor {
+  color: #ffffff;
+}
+pre.editor-colors .selection .region {
+  background-color: #373b41;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-color: #969896;
+}
+.syntax--comment {
+  color: #969896;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #969896;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #f0c674;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #b5bd68;
+}
+.syntax--keyword {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--control {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--operator {
+  color: #c5c8c6;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #81a2be;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #de935f;
+}
+.syntax--storage {
+  color: #b294bb;
+}
+.syntax--constant {
+  color: #de935f;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--numeric {
+  color: #de935f;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #b5bd68;
+}
+.syntax--variable {
+  color: #cc6666;
+}
+.syntax--variable.syntax--interpolation {
+  color: #a3685a;
+}
+.syntax--variable.syntax--parameter.syntax--function {
+  color: #c5c8c6;
+}
+.syntax--invalid.syntax--illegal {
+  background-color: #cc6666;
+  color: #1d1f21;
+}
+.syntax--string {
+  color: #b5bd68;
+}
+.syntax--string.syntax--regexp {
+  color: #8abeb7;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #f0c674;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #cc6666;
+}
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #c5c8c6;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #81a2be;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #f0c674;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #a3685a;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #c5c8c6;
+}
+.syntax--support.syntax--class {
+  color: #f0c674;
+}
+.syntax--support.syntax--function {
+  color: #8abeb7;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #f0c674;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #cc6666;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #de935f;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #81a2be;
+}
+.syntax--meta.syntax--class {
+  color: #f0c674;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--link {
+  color: #de935f;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--require {
+  color: #81a2be;
+}
+.syntax--meta.syntax--selector {
+  color: #b294bb;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #c5c8c6;
+}
+.syntax--meta.syntax--tag {
+  color: #c5c8c6;
+}
+.syntax--none {
+  color: #c5c8c6;
+}
+.syntax--markup.syntax--bold {
+  color: #de935f;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #b294bb;
+}
+.syntax--markup.syntax--deleted {
+  color: #cc6666;
+}
+.syntax--markup.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #cc6666;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #81a2be;
+}
+.syntax--markup.syntax--link {
+  color: #81a2be;
+}
+.syntax--markup.syntax--inserted {
+  color: #b5bd68;
+}
+.syntax--markup.syntax--quote {
+  color: #de935f;
+}
+.syntax--markup.syntax--raw {
+  color: #b5bd68;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #8abeb7;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #b294bb;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #b5bd68;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #8abeb7;
+}
+</style>
+  </head>
+  <body class='markdown-preview'><h1>HW 9</h1>
+<p><strong>DUE: Friday, April 13, 9am</strong></p>
+<h3>Exercises</h3>
+<p><strong>Section 4.6:</strong> (2), 6, 8, 10, (12), 14, (16), 18, (23), 24, (25), (26), (27)<br>
+<strong>Section 4.7:</strong> 2, 4, 6, 8, 12, 20a</p>
+<hr>
+<p><strong>4.6.2.</strong> (recommended)<br>
+Assume that the matrix <span class="math"><script type="math/tex">A</script></span> is row equivalent to <span class="math"><script type="math/tex">B</script></span>.
+Without calculations, list <span class="math"><script type="math/tex">\operatorname{rank} A</script></span> and
+<span class="math"><script type="math/tex">\operatorname{dim} \operatorname{Nul} A</script></span>. Then find bases
+for <span class="math"><script type="math/tex">\operatorname{Col} A</script></span>, <span class="math"><script type="math/tex">\operatorname{Row} A</script></span>,
+and <span class="math"><script type="math/tex">\operatorname{Nul} A</script></span>.</p>
+<p><span class="math"><script type="math/tex">A=\left[\begin{array}{r}
+1 &-3 & 4 & -1 & 9 \\
+-2 & 6 & -6 & -1 & -10\\
+-3 & 9 & -6 & -6 & -3\\
+3 & -9 & 4 & 9 & 0
+\end{array}\right]</script></span>,
+<span class="math"><script type="math/tex">B=\left[\begin{array}{r}
+1 &-3 & 0 & 5 & -7 \\
+0 & 0 & 2 & -3 & 8\\
+0 & 0 & 0 & 0 & 5\\
+0 & 0 & 0 & 0 & 0
+\end{array}\right]</script></span></p>
+<hr>
+<p><strong>4.6.6.</strong>
+If a <span class="math"><script type="math/tex">6 \times 3</script></span> matrix <span class="math"><script type="math/tex">A</script></span> has rank 3, find
+<span class="math"><script type="math/tex">\operatorname{dim} \operatorname{Nul} A</script></span>,
+<span class="math"><script type="math/tex">\operatorname{dim} \operatorname{Row} A</script></span>, and
+<span class="math"><script type="math/tex">\operatorname{rank} A^{T}</script></span>.</p>
+<hr>
+<p><strong>4.6.8.</strong>
+Suppose a <span class="math"><script type="math/tex">5 \times 6</script></span> matrix <span class="math"><script type="math/tex">A</script></span> has four pivot columns.  What is
+<span class="math"><script type="math/tex">\operatorname{dim} \operatorname{Nul} A</script></span>?
+Is <span class="math"><script type="math/tex">\operatorname{Col} A = \mathbb{R}^4</script></span>? Why or why not?</p>
+<hr>
+<p><strong>4.6.10.</strong>
+If the null space of a <span class="math"><script type="math/tex">7\times 6</script></span> matrix <span class="math"><script type="math/tex">A</script></span> is 5-dimensional, what is the dimension of the column space of <span class="math"><script type="math/tex">A</script></span>?</p>
+<hr>
+<p><strong>4.6.12.</strong> (recommended)<br>
+If the null space of a <span class="math"><script type="math/tex">5\times 6</script></span> matrix <span class="math"><script type="math/tex">A</script></span> is 4-dimensional,
+what is the dimension of the row space of <span class="math"><script type="math/tex">A</script></span>?</p>
+<hr>
+<p><strong>4.6.14.</strong>
+If <span class="math"><script type="math/tex">A</script></span> is a <span class="math"><script type="math/tex">4\times 3</script></span> matrix, what is the largest possible dimension
+of the row space of <span class="math"><script type="math/tex">A</script></span>? If <span class="math"><script type="math/tex">A</script></span> is a <span class="math"><script type="math/tex">3 \times 4</script></span> matrix,
+what is the largest possible dimension of the row space of <span class="math"><script type="math/tex">A</script></span>? Explain.</p>
+<hr>
+<p><strong>4.6.16.</strong> (recommended)<br>
+If <span class="math"><script type="math/tex">A</script></span> is a <span class="math"><script type="math/tex">6\times 4</script></span> matrix, what is the largest possible dimension
+of <span class="math"><script type="math/tex">\operatorname{Nul} A</script></span>?</p>
+<hr>
+<p><strong>4.6.18.</strong>
+Let <span class="math"><script type="math/tex">A</script></span> be an <span class="math"><script type="math/tex">m\times n</script></span> matrix. Mark each statement
+True or False. Justify each answer.</p>
+<p><strong>a.</strong> If <span class="math"><script type="math/tex">B</script></span> is any echelon form of <span class="math"><script type="math/tex">A</script></span>,
+then the pivot columns of <span class="math"><script type="math/tex">B</script></span> form a basis for the column space of <span class="math"><script type="math/tex">A</script></span>.</p>
+<p><strong>b.</strong> Row operations preserve the linear dependence relations
+among the rows of <span class="math"><script type="math/tex">A</script></span>.</p>
+<p><strong>c.</strong> The dimension of the null space of <span class="math"><script type="math/tex">A</script></span> is the number of
+columns of <span class="math"><script type="math/tex">A</script></span> that are not pivot columns.</p>
+<p><strong>d.</strong> The row space of <span class="math"><script type="math/tex">A^{T}</script></span> is the same as the column space of <span class="math"><script type="math/tex">A</script></span>.</p>
+<hr>
+<p><strong>4.6.23.</strong> (recommended)<br>
+A homogeneous system of twelve linear equations in eight
+unknowns has two fixed solutions that are not multiples of
+each other, and all other solutions are linear combinations of
+these two solutions. Can the set of all solutions be described
+with fewer than twelve homogeneous linear equations? If so,
+how many? Discuss.</p>
+<hr>
+<p><strong>4.6.24.</strong>
+Is it possible for a nonhomogeneous system of seven equations
+in six unknowns to have a unique solution for some
+right-hand side of constants? Is it possible for such a system
+to have a unique solution for every right-hand side? Explain.</p>
+<hr>
+<p><strong>4.6.25.</strong>  (recommended)<br>
+A scientist solves a nonhomogeneous system of ten linear
+equations in twelve unknowns and finds that three of the
+unknowns are free variables. Can the scientist be certain
+that, if the right sides of the equations are changed, the new
+nonhomogeneous system will have a solution? Discuss.</p>
+<hr>
+<p><strong>4.6.26.</strong>  (recommended)<br>
+In statistical theory, a common requirement is that a matrix
+be of <em>full rank</em>. That is, the rank should be as large as
+possible. Explain why an <span class="math"><script type="math/tex">m\times n</script></span> matrix with more rows than
+columns has full rank if and only if its columns are linearly
+independent.</p>
+<hr>
+<p><strong>4.6.27.</strong> (recommended)<br>
+Let <span class="math"><script type="math/tex">A</script></span> be an <span class="math"><script type="math/tex">m\times n</script></span> matrix.
+Which of the subspaces <span class="math"><script type="math/tex">\operatorname{Row} A</script></span>, <span class="math"><script type="math/tex">\operatorname{Col} A</script></span>,
+<span class="math"><script type="math/tex">\operatorname{Nul} A</script></span>, <span class="math"><script type="math/tex">\operatorname{Row} A^{T}</script></span>,
+<span class="math"><script type="math/tex">\operatorname{Col} A^{T}</script></span>,
+<span class="math"><script type="math/tex">\operatorname{Nul} A^{T}</script></span>
+are in <span class="math"><script type="math/tex">\mathbb{R}^m</script></span> and which are in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>?
+How many distinct subspaces are in this list?</p>
+<hr>
+<h2>Section 4.7</h2>
+<p><strong>Exercises:</strong> 2, 4, 6, 8, 12, 20a</p>
+<hr>
+<p><strong>4.7.2.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>
+and
+<span class="math"><script type="math/tex">\mathcal{C} = \{\mathbf{c}_1, \mathbf{c}_2\}</script></span>
+be bases for a vector space <span class="math"><script type="math/tex">V</script></span>, and suppose
+<span class="math"><script type="math/tex">\mathbf{b}_1 = -\mathbf{c}_1 + 4\mathbf{c}_2</script></span>
+and
+<span class="math"><script type="math/tex">\mathbf{b}_2 = 5\mathbf{c}_1 - 3\mathbf{c}_2</script></span>.</p>
+<p><strong>a.</strong> Find the change-of-coordinates matrix from <span class="math"><script type="math/tex">\mathcal{B}</script></span> to <span class="math"><script type="math/tex">\mathcal{C}</script></span>.</p>
+<p><strong>b.</strong> Find
+<span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{C}}</script></span> for
+<span class="math"><script type="math/tex">\mathbf{x} = 5\mathbf{b}_1 + 3 \mathbf{b}_2</script></span>.</p>
+<hr>
+<p><strong>4.7.4.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{A} = \{\mathbf{a}_1, \mathbf{a}_2, \mathbf{a}_3\}</script></span>
+and <span class="math"><script type="math/tex">\mathcal{D} = \{\mathbf{d}_1, \mathbf{d}_2, \mathbf{d}_3\}</script></span>
+be bases for <span class="math"><script type="math/tex">V</script></span>, and let
+<span class="math"><script type="math/tex">P = \left[[\mathbf{d}_1]_{\mathcal{A}} \; [\mathbf{d}_2]_{\mathcal{A}} \; 
+[\mathbf{d}_3]_{\mathcal{A}}\right]</script></span>.
+Which of the following equations is satisfied by <span class="math"><script type="math/tex">P</script></span> for all
+<span class="math"><script type="math/tex">\mathbf{x}</script></span> in <span class="math"><script type="math/tex">V</script></span>?</p>
+<p>(i) <span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{A}} = P[\mathbf{x}]_{\mathcal{D}}</script></span></p>
+<p>(ii) <span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{D}} = P[\mathbf{x}]_{\mathcal{A}}</script></span></p>
+<hr>
+<p><strong>4.7.6.</strong>
+Let  <span class="math"><script type="math/tex">\mathcal{D} = \{\mathbf{d}_1, \mathbf{d}_2, \mathbf{d}_3\}</script></span> and
+<span class="math"><script type="math/tex">\mathcal{F} = \{\mathbf{f}_1, \mathbf{f}_2, \mathbf{f}_3\}</script></span>
+be bases for a vector space <span class="math"><script type="math/tex">V</script></span>, and suppose
+<span class="math"><script type="math/tex">\mathbf{f}_1 = 2 \mathbf{d}_1 - \mathbf{d}_2 + \mathbf{d}_3</script></span>,
+<span class="math"><script type="math/tex">\mathbf{f}_2 = 3 \mathbf{d}_2 + \mathbf{d}_3</script></span>
+and <span class="math"><script type="math/tex">\mathbf{f}_3 = -3 \mathbf{d}_1 + 2\mathbf{d}_3</script></span>.</p>
+<p><strong>a.</strong> Find the change-of-coordinates matrix from <span class="math"><script type="math/tex">\mathcal{F}</script></span> to
+<span class="math"><script type="math/tex">\mathcal{D}</script></span>.</p>
+<p><strong>b.</strong> Find <span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{D}}</script></span> for
+<span class="math"><script type="math/tex">\mathbf{x} = \mathbf{f}_1 - 2 \mathbf{f}_2 + 2 \mathbf{f}_3</script></span>.</p>
+<hr>
+<p><strong>4.7.8.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{B} = \left\{\left[\begin{array}{r}-1\\8\end{array}\right], \left[\begin{array}{r}1\\-5\end{array}\right]\right\}</script></span>
+and
+<span class="math"><script type="math/tex">\mathcal{C} = \left\{\left[\begin{array}{r}1\\4\end{array}\right], \left[\begin{array}{r}1\\1\end{array}\right]\right\}</script></span>
+be bases for <span class="math"><script type="math/tex">\mathbb{R}^2</script></span>.
+Find the change-of-coordinates matrix from
+<span class="math"><script type="math/tex">\mathcal{B}</script></span> to <span class="math"><script type="math/tex">\mathcal{C}</script></span> and the change-of-coordinates
+<span class="math"><script type="math/tex">\mathcal{C}</script></span> to <span class="math"><script type="math/tex">\mathcal{B}</script></span>.</p>
+<hr>
+<p><strong>4.7.12.</strong>
+Suppose <span class="math"><script type="math/tex">\mathcal{B}</script></span> and <span class="math"><script type="math/tex">\mathcal{C}</script></span> are bases for a vector space <span class="math"><script type="math/tex">V</script></span>.
+Mark each statement True or False. Justify each answer.</p>
+<p><strong>a.</strong> The columns of <span class="math"><script type="math/tex">P_{\mathcal{C}\leftarrow \mathcal{B}}</script></span> are linearly independent.</p>
+<p><strong>b.</strong> If <span class="math"><script type="math/tex">V = \mathbb{R}^2</script></span>, <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>,
+and <span class="math"><script type="math/tex">\mathcal{C} = \{\mathbf{c}_1, \mathbf{c}_2\}</script></span>, then row reduction of
+<span class="math"><script type="math/tex">\left[\mathbf{c}_1 \; \mathbf{c}_2 \; \mathbf{b}_1 \; \mathbf{b}_2\right]</script></span>
+to <span class="math"><script type="math/tex">\left[ I \; P \right]</script></span> produces a matrix <span class="math"><script type="math/tex">P</script></span> that satisfies
+<span class="math"><script type="math/tex">[\mathbf{x}]_{\mathcal{B}} = P [\mathbf{x}]_{\mathcal{C}}</script></span> for all <span class="math"><script type="math/tex">\mathbf{x}</script></span> in <span class="math"><script type="math/tex">V</script></span>.</p>
+<hr>
+<p><strong>4.7.20a.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>,
+<span class="math"><script type="math/tex">\mathcal{C} = \{\mathbf{c}_1, \mathbf{c}_2\}</script></span>,
+and <span class="math"><script type="math/tex">\mathcal{D} = \{\mathbf{d}_1, \mathbf{d}_2\}</script></span>
+be bases for a 2-dimensional vector space.</p>
+<p>Write an equation that relates the matrices
+<span class="math"><script type="math/tex">P_{\mathcal{C}\leftarrow \mathcal{B}}</script></span>,
+<span class="math"><script type="math/tex">P_{\mathcal{D}\leftarrow \mathcal{C}}</script></span>, and
+<span class="math"><script type="math/tex">P_{\mathcal{D}\leftarrow \mathcal{B}}</script></span>. Justify your result.</p></body>
+</html>
