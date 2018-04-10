@@ -117,3 +117,16 @@
 **Section 6.1:** 16, (27), 28, (30)    
 **Section 6.2:** 10, 12, (13), 16, 24, (33)   
 **Section 6.3:** 6, 8, 12, (13), 16   
+
+---
+
+## HW 12
+
+**Due Wednesday, May 2**
+
+**Section 6.4:** 4, 8, 12, 16, 18,  
+**Section 6.5:** 4, 8, 10, 18.  
+
+**Note:** HW 12 may be submitted anytime before  Friday, May 4, 3pm. 
+If you don't have it ready to turn in during Wednesday's class, please drop your completed homework off in my office (Math Room 202) sometime before 3pm on Friday, May 4. 
+(Slip it under the door if no one is in the office when you arrive.)
