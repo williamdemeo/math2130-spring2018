@@ -309,20 +309,100 @@ pre.editor-colors .bracket-matcher .region {
   <body class='markdown-preview'><h2>HW 11</h2>
 <p><strong>DUE Friday, April 27, 9am</strong></p>
 <h3>List of Exercises</h3>
-<p><strong>Section 6.1:</strong> 16, (27), 28, (30)<br>
-<strong>Section 6.2:</strong> 10, 12, (13), 16, 24, (33)<br>
-<strong>Section 6.3:</strong> 6, 8, 12, (13), 16</p>
+<p><strong>Section 5.4:</strong> 2, 12, (21), (25), 26, (27)<br>
+<strong>Section 6.1:</strong> 6, 10, 14, 16, 20, (27), 28, (30)<br>
+<strong>Section 6.2:</strong> 10, 12, (13), 16, 24, (33)</p>
 <hr>
-<h4>Section 6.1</h4>
-<p><strong>Exercises: 16, (27), 28, (30)</strong></p>
+<h3>Section 5.4</h3>
+<h4>Exercises: 2, 12, (21), (25), 26, (27)</h4>
+<p><strong>5.4.2.</strong>
+Let <span class="math"><script type="math/tex">\mathcal{D} = \{\mathbf{d}_1, \mathbf{d}_2\}</script></span>
+and <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>
+be bases for vector spaces <span class="math"><script type="math/tex">V</script></span> and <span class="math"><script type="math/tex">W</script></span>, respectively.
+Let <span class="math"><script type="math/tex">T :  V \to W</script></span> be a linear transformation satisfying</p>
+<span class="math"><script type="math/tex; mode=display">T (\mathbf{d}_1) = 2\mathbf{b}_1 - 3\mathbf{b}_2 \quad \text{ and } \quad
+T (\mathbf{d}_2) = -4\mathbf{b}_1 + 5\mathbf{b}_2.
+</script></span>
+<p>Find the matrix for <span class="math"><script type="math/tex">T</script></span> relative to <span class="math"><script type="math/tex">\mathcal{D}</script></span> and <span class="math"><script type="math/tex">\mathcal{B}</script></span>.</p>
+<hr>
+<p><strong>5.4.12.</strong>
+Find the <span class="math"><script type="math/tex">\mathcal{B}</script></span>-matrix for the transformation
+<span class="math"><script type="math/tex">\mathbf{x} \mapsto A \mathbf{x}</script></span>, when
+<span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \mathbf{b}_2\}</script></span>, where</p>
+<span class="math"><script type="math/tex; mode=display">A = \left[\begin{array}{r}
+-1 & 4\\-2& 3 \end{array}\right],
+\quad \mathbf{b}_1 = \left[\begin{array}{r}
+3\\2 \end{array}\right], \quad
+\mathbf{b}_2 =   \left[\begin{array}{r}
+-1 \\ 1\end{array}\right].
+</script></span>
+<hr>
+<p>5.4.21. (recommended)<br>
+Prove the following statement for square matrices, <span class="math"><script type="math/tex">A</script></span>, <span class="math"><script type="math/tex">B</script></span>, <span class="math"><script type="math/tex">C</script></span>.  If <span class="math"><script type="math/tex">B</script></span> is similar to <span class="math"><script type="math/tex">A</script></span> and <span class="math"><script type="math/tex">C</script></span> is similar to <span class="math"><script type="math/tex">A</script></span>, then <span class="math"><script type="math/tex">B</script></span> is similar
+to <span class="math"><script type="math/tex">C</script></span>.</p>
+<hr>
+<p>5.4.25. (recommended)<br>
+The <em>trace</em> of a square matrix <span class="math"><script type="math/tex">A</script></span> is the sum of the diagonal
+entries in <span class="math"><script type="math/tex">A</script></span> and is denoted by <span class="math"><script type="math/tex">\operatorname{tr} A</script></span>.
+It can be verified that <span class="math"><script type="math/tex">\operatorname{tr} (F G) = \operatorname{tr}(G F)</script></span>
+for any two <span class="math"><script type="math/tex">n\times n</script></span> matrices <span class="math"><script type="math/tex">F</script></span> and <span class="math"><script type="math/tex">G</script></span>.
+Show that if <span class="math"><script type="math/tex">A</script></span> and <span class="math"><script type="math/tex">B</script></span> are similar, then
+<span class="math"><script type="math/tex">\operatorname{tr} A = \operatorname{tr} B</script></span>.</p>
+<hr>
+<p><strong>5.4.26.</strong> It can be shown that the <em>trace</em> (see Exercise 5.4.25 for definition)
+of a matrix <span class="math"><script type="math/tex">A</script></span> equals the sum of the eigenvalues of <span class="math"><script type="math/tex">A</script></span>. Verify this statement for the case when <span class="math"><script type="math/tex">A</script></span> is diagonalizable.</p>
+<hr>
+<p>5.4.27. (recommended)<br>
+Let <span class="math"><script type="math/tex">V</script></span> be <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> with a basis <span class="math"><script type="math/tex">\mathcal{B} = \{\mathbf{b}_1, \dots, \mathbf{b}_n\}</script></span>, let
+<span class="math"><script type="math/tex">W</script></span> be <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> with a the standard basis, denoted <span class="math"><script type="math/tex">\mathcal{E}</script></span>.
+Consider the identity transformation <span class="math"><script type="math/tex">I : V \to W</script></span>, where <span class="math"><script type="math/tex">I(\mathbf{x}) = \mathbf{x}</script></span>.
+Find the matrix for <span class="math"><script type="math/tex">I</script></span> relative to <span class="math"><script type="math/tex">\mathcal{B}</script></span> and <span class="math"><script type="math/tex">\mathcal{E}</script></span>.
+What was this matrix called in Section 4.4?</p>
+<hr>
+<h3>Section 6.1</h3>
+<h4>Exercises: 6, 10, 14, 16, 20, (27), 28, (30)</h4>
+<p><strong>6.1.6.</strong> Let
+<span class="math"><script type="math/tex">\mathbf{w} = \left[\begin{array}{r}
+3\\-1\\-5\end{array}\right]</script></span>
+and <span class="math"><script type="math/tex">\mathbf{x} = \left[\begin{array}{r}
+6\\-2\\3\end{array}\right]</script></span>. Compute
+<span class="math"><script type="math/tex">{\large \left(\frac{\mathbf{x} \cdot \mathbf{w}}{\mathbf{x}\cdot \mathbf{x}}\right)}</script></span> <span class="math"><script type="math/tex">\mathbf{x}</script></span></p>
+<hr>
+<p><strong>6.1.10.</strong>
+Find a unit vector in the direction of the vector
+<span class="math"><script type="math/tex">\left[\begin{array}{r}
+-6\\4\\-3\end{array}\right]</script></span></p>
+<hr>
+<p><strong>6.1.14.</strong>
+Find the distance between
+<span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}
+0\\-5\\2\end{array}\right]</script></span>
+and
+<span class="math"><script type="math/tex">\mathbf{z} = \left[\begin{array}{r}
+-4\\-1\\8\end{array}\right]</script></span></p>
+<hr>
 <p><strong>6.1.16.</strong> Determine whether
 <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}12\\3\\-5\end{array}\right]</script></span>
 and
 <span class="math"><script type="math/tex">\mathbf{v} = \left[\begin{array}{r} 2 \\ -3 \\ 3\end{array}\right]</script></span>
 are orthogonal vectors.</p>
-<p><strong>6.1.27.</strong> (recommended)<br>
+<hr>
+<p><strong>6.1.20.</strong> Mark each statement True or False. Justify each answer.
+All vectors are assumed to be in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
+<p><strong>a.</strong> <span class="math"><script type="math/tex">\mathbf{u} \cdot \mathbf{v} - \mathbf{v}\cdot \mathbf{u} = 0</script></span></p>
+<p><strong>b.</strong> For any scalar <span class="math"><script type="math/tex">c</script></span>, <span class="math"><script type="math/tex">\|c\mathbf{v}\|= c\|\mathbf{v}\|</script></span>.</p>
+<p><strong>c.</strong> If <span class="math"><script type="math/tex">\mathbf{x}</script></span> is orthogonal to every vector in a subspace <span class="math"><script type="math/tex">W</script></span>,
+then <span class="math"><script type="math/tex">\mathbf{x}</script></span> is in <span class="math"><script type="math/tex">W^{\bot}</script></span>.</p>
+<p><strong>d.</strong> If
+<span class="math"><script type="math/tex">\|\mathbf{u}\|^2 + \|\mathbf{v}\|^2  = \|\mathbf{u} + \mathbf{v}\|^2</script></span>,
+then <span class="math"><script type="math/tex">\mathbf{u}</script></span> and <span class="math"><script type="math/tex">\mathbf{v}</script></span> are orthogonal.</p>
+<p><strong>e.</strong> For an <span class="math"><script type="math/tex">m \times n</script></span> matrix <span class="math"><script type="math/tex">A</script></span>, vectors in the null space of <span class="math"><script type="math/tex">A</script></span> are
+orthogonal to vectors in the row space of <span class="math"><script type="math/tex">A</script></span>.</p>
+<hr>
+<p>6.1.27. (recommended)<br>
 Suppose a vector <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to vectors <span class="math"><script type="math/tex">\mathbf{u}</script></span> and
 <span class="math"><script type="math/tex">\mathbf{v}</script></span>. Show that <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to the vector <span class="math"><script type="math/tex">\mathbf{u} + \mathbf{v}</script></span>.</p>
+<hr>
 <p><strong>6.1.28.</strong> Suppose <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to
 <span class="math"><script type="math/tex">\mathbf{u}</script></span> and
 <span class="math"><script type="math/tex">\mathbf{v}</script></span>. Show that
@@ -334,7 +414,8 @@ to every <span class="math"><script type="math/tex">\mathbf{w}</script></span> i
 <span class="math"><script type="math/tex">\mathbf{w} =  c_1 \mathbf{u} + c_2\mathbf{v}</script></span>;
 show that <span class="math"><script type="math/tex">\mathbf{y}</script></span> is orthogonal to
 every such a vector.]</p>
-<p><strong>6.1.30.</strong> (recommended)<br>
+<hr>
+<p>6.1.30. (recommended)<br>
 Let <span class="math"><script type="math/tex">W</script></span> be a subspace of <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, and let <span class="math"><script type="math/tex">W^{\bot}</script></span>
 be the set of all vectors orthogonal to <span class="math"><script type="math/tex">W</script></span>.
 Show that <span class="math"><script type="math/tex">W^{\bot}</script></span> is a subspace of <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>
@@ -359,19 +440,23 @@ and <span class="math"><script type="math/tex">\mathbf{x} = \left[\begin{array}{
 Show that <span class="math"><script type="math/tex">\{\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3\}</script></span>
 is an orthogonal basis for <span class="math"><script type="math/tex">\mathbb{R}^3</script></span>. Then express <span class="math"><script type="math/tex">\mathbf{x}</script></span> as a linear
 combination of the <span class="math"><script type="math/tex">\mathbf{u}</script></span>'s.</p>
+<hr>
 <p><strong>6.2.12.</strong> Compute the orthogonal projection of
 <span class="math"><script type="math/tex">\left[\begin{array}{r}1\\-1\end{array}\right]</script></span> onto the line through
 <span class="math"><script type="math/tex">\left[\begin{array}{r}-1\\3\end{array}\right]</script></span>.</p>
-<p><strong>6.2.13.</strong> (recommended)<br>
+<hr>
+<p>6.2.13. (recommended)<br>
 Let <span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}2\\3\end{array}\right]</script></span>
 and <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}4\\-7\end{array}\right]</script></span>.
 Write <span class="math"><script type="math/tex">\mathbf{y}</script></span> as the sum of two orthogonal vectors, one in
 <span class="math"><script type="math/tex">\operatorname{Span}\{\mathbf{u}\}</script></span> and the other orthogonal to
 <span class="math"><script type="math/tex">\mathbf{u}</script></span>.</p>
+<hr>
 <p><strong>6.2.16.</strong> Let <span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}-3\\9\end{array}\right]</script></span>
 and <span class="math"><script type="math/tex">\mathbf{u} = \left[\begin{array}{r}1\\2\end{array}\right]</script></span>.
 Compute the distance from <span class="math"><script type="math/tex">\mathbf{y}</script></span> to the line passing through
 <span class="math"><script type="math/tex">\mathbf{u}</script></span> and the origin.</p>
+<hr>
 <p><strong>6.2.24.</strong>  Mark each statement True or False. Justify each answer.
 All vectors are assumed to belong to <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>.</p>
 <p><strong>a.</strong> Not every orthogonal set in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span> is linearly independent.</p>
@@ -382,41 +467,8 @@ whenever <span class="math"><script type="math/tex">i \neq j</script></span>, th
 the linear mapping <span class="math"><script type="math/tex">\mathbf{x} \mapsto A \mathbf{x}</script></span> preserves lengths.</p>
 <p><strong>d.</strong> The orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span> onto <span class="math"><script type="math/tex">\mathbf{v}</script></span> is the same as the orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span> onto <span class="math"><script type="math/tex">c\mathbf{v}</script></span> whenever <span class="math"><script type="math/tex">c \neq 0</script></span>.</p>
 <p><strong>e.</strong> An orthogonal matrix is invertible.</p>
-<p><strong>6.2.33.</strong> (recommended)<br>
-Suppose <span class="math"><script type="math/tex">\mathbf{u}</script></span> is a nonzero vector in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, and let <span class="math"><script type="math/tex">L = \operatorname{Span} \{\mathbf{u}\}</script></span>. Show that the mapping
-<span class="math"><script type="math/tex">\mathbf{x} \mapsto \operatorname{proj}_L \mathbf{x}</script></span> is a linear transformation.</p>
 <hr>
-<h4>Section 6.3</h4>
-<p><strong>Exercises: 6, 8, 12, (13), 16</strong></p>
-<p><strong>6.3.6.</strong> Let
-<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}6\\4\\1\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{u}_1 = \left[\begin{array}{r}-4\\-1\\1\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{u}_2 = \left[\begin{array}{r}0\\1\\1\end{array}\right]</script></span>.
-Verify that
-<span class="math"><script type="math/tex">\{\mathbf{u}_1,\mathbf{u}_2\}</script></span> is an orthogonal set, and then
-find the orthogonal projection of <span class="math"><script type="math/tex">\mathbf{y}</script></span>
-onto <span class="math"><script type="math/tex">\operatorname{Span} \{\mathbf{u}_1,\mathbf{u}_2\}</script></span>.</p>
-<p><strong>6.3.8.</strong> Let
-<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}-1\\4\\3\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{u}_1 = \left[\begin{array}{r}1\\1\\1\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{u}_2 = \left[\begin{array}{r}-1\\3\\-2\end{array}\right]</script></span>.
-Let <span class="math"><script type="math/tex">W</script></span> be the subspace spanned by <span class="math"><script type="math/tex">\mathbf{u}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{u}_2</script></span>, and
-write <span class="math"><script type="math/tex">\mathbf{y}</script></span> as the sum of a vector in <span class="math"><script type="math/tex">W</script></span> and a vector orthogonal to <span class="math"><script type="math/tex">W</script></span>.</p>
-<p><strong>6.3.12.</strong> Let
-<span class="math"><script type="math/tex">\mathbf{y} = \left[\begin{array}{r}3\\-1\\1\\13\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{v}_1 = \left[\begin{array}{r}1\\-2\\-1\\2\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{v}_2 = \left[\begin{array}{r}-4\\1\\0\\3\end{array}\right]</script></span>.
-Find the closest point to
-<span class="math"><script type="math/tex">\mathbf{y}</script></span> in the subspace <span class="math"><script type="math/tex">W</script></span> spanned by <span class="math"><script type="math/tex">\mathbf{v}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{v}_2</script></span>.</p>
-<p><strong>6.3.13.</strong> (recommended)<br>
-Let
-<span class="math"><script type="math/tex">\mathbf{z} = \left[\begin{array}{r}3\\-7\\2\\3\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{v}_1 = \left[\begin{array}{r}2\\-1\\-3\\1\end{array}\right]</script></span>,
-<span class="math"><script type="math/tex">\mathbf{v}_2 = \left[\begin{array}{r}1\\1\\0\\-1\end{array}\right]</script></span>.
-Find the best approximation to <span class="math"><script type="math/tex">\mathbf{z}</script></span> by a vector
-of the form <span class="math"><script type="math/tex">c_1\mathbf{v}_1 + c_2\mathbf{v}_2</script></span>.</p>
-<p><strong>6.3.16.</strong> Let
-<span class="math"><script type="math/tex">\mathbf{y}</script></span>,
-<span class="math"><script type="math/tex">\mathbf{v}_1</script></span>, <span class="math"><script type="math/tex">\mathbf{v}_2</script></span> be as in Exercise 12.
-Find the distance from <span class="math"><script type="math/tex">\mathbf{y}</script></span> to the subspace <span class="math"><script type="math/tex">W</script></span> spanned by <span class="math"><script type="math/tex">\mathbf{v}_1</script></span> and <span class="math"><script type="math/tex">\mathbf{v}_2</script></span>.</p></body>
+<p>6.2.33. (recommended)<br>
+Suppose <span class="math"><script type="math/tex">\mathbf{u}</script></span> is a nonzero vector in <span class="math"><script type="math/tex">\mathbb{R}^n</script></span>, and let <span class="math"><script type="math/tex">L = \operatorname{Span} \{\mathbf{u}\}</script></span>. Show that the mapping
+<span class="math"><script type="math/tex">\mathbf{x} \mapsto \operatorname{proj}_L \mathbf{x}</script></span> is a linear transformation.</p></body>
 </html>
